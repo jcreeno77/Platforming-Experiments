@@ -15,13 +15,13 @@ public class CollExpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6));
+        //Debug.Log(Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6));
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(),1 << 6))
         {
-            Debug.Log("Basically Here");
+            //Debug.Log("Basically Here");
             if (!grounded)
             {
-                Debug.Log("Here");
+                //Debug.Log("Here");
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;

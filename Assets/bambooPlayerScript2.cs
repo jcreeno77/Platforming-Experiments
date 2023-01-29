@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class bambooPlayerScript : MonoBehaviour
+public class bambooPlayerScript2 : MonoBehaviour
 {
     float speed;
     float baseSpeed;
@@ -24,7 +24,7 @@ public class bambooPlayerScript : MonoBehaviour
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
-            controller1 = Gamepad.all[0];
+            controller2 = Gamepad.all[1];
         }
     }
 
