@@ -13,7 +13,6 @@ public class bambooPlayerScript2 : MonoBehaviour
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
 
-    Gamepad controller1;
     Gamepad controller2;
     // Start is called before the first frame update
     void Start()
@@ -24,7 +23,7 @@ public class bambooPlayerScript2 : MonoBehaviour
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
-            controller2 = Gamepad.all[0];
+            controller2 = Gamepad.all[i];
         }
     }
 

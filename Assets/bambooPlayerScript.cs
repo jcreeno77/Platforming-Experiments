@@ -14,7 +14,6 @@ public class bambooPlayerScript : MonoBehaviour
     [SerializeField] GameObject pole;
 
     Gamepad controller1;
-    Gamepad controller2;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +59,7 @@ public class bambooPlayerScript : MonoBehaviour
             
             }
             //Controller version
+
             if (controller1.leftStick.up.isPressed)
             {
                 if (distance < 2.553)
@@ -122,6 +122,7 @@ public class bambooPlayerScript : MonoBehaviour
             //Handle Grab Mechanics
         
             float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
+            //Debug.Log(localFlingDistance);
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 grabLocation = transform.localPosition;
@@ -132,14 +133,14 @@ public class bambooPlayerScript : MonoBehaviour
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
-                Debug.Log("grabLocation: " + grabLocation);
-                Debug.Log("localPosition " + transform.localPosition);
-                Debug.Log(localFlingDistance);
-                Debug.Log(Vector2.Distance(transform.localPosition, grabLocation));
+                //Debug.Log("grabLocation: " + grabLocation);
+                //Debug.Log("localPosition " + transform.localPosition);
+                //Debug.Log(localFlingDistance);
+                //Debug.Log(Vector2.Distance(transform.localPosition, grabLocation));
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                GetComponent<SpriteRenderer>().color = Color.green;
+                GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y+1) * 8f * localFlingDistance);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;
@@ -157,14 +158,10 @@ public class bambooPlayerScript : MonoBehaviour
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
-                Debug.Log("grabLocation: " + grabLocation);
-                Debug.Log("localPosition " + transform.localPosition);
-                Debug.Log(localFlingDistance);
-                Debug.Log(Vector2.Distance(transform.localPosition, grabLocation));
             }
             if (controller1.rightShoulder.wasReleasedThisFrame)
             {
-                GetComponent<SpriteRenderer>().color = Color.green;
+                GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y + 1) * 8f * localFlingDistance);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;
@@ -200,8 +197,6 @@ public class bambooPlayerScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().velocity = dashDirect*dashSpeed;
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                 float angle = Vector2.Angle(new Vector2(horizontal,vertical),Vector3.up);
-                //Quaternion angles = Quaternion.LookRotation(dashDirect, Vector2.up);
-                Debug.Log(angle);
                 if(horizontal < 0)
                 {
                     pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
@@ -231,12 +226,17 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     horizontal -= 1;
                 }
+                
+                if (horizontal == 0 && vertical == 0)
+                {
+                    vertical = -1;
+                }
+
                 Vector2 dashDirect = new Vector2(horizontal, vertical);
+                
                 pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                 float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
-                //Quaternion angles = Quaternion.LookRotation(dashDirect, Vector2.up);
-                Debug.Log(angle);
                 if (horizontal < 0)
                 {
                     pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
@@ -245,6 +245,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
                 }
+                
             }
         }
     }
