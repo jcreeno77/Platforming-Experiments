@@ -24,7 +24,7 @@ public class bambooPlayerScript2 : MonoBehaviour
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
-            controller2 = Gamepad.all[1];
+            controller2 = Gamepad.all[0];
         }
     }
 
@@ -60,7 +60,7 @@ public class bambooPlayerScript2 : MonoBehaviour
             
             }
             //Controller version
-            if (controller1.leftStick.up.isPressed)
+            if (controller2.leftStick.up.isPressed)
             {
                 if (distance < 2.553)
                 {
@@ -75,7 +75,7 @@ public class bambooPlayerScript2 : MonoBehaviour
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
             }
-            else if (controller1.leftStick.down.isPressed)
+            else if (controller2.leftStick.down.isPressed)
             {
                 if (distance > 0.3)
                 {
@@ -99,14 +99,14 @@ public class bambooPlayerScript2 : MonoBehaviour
                 }
             }
             //Controller version
-            if (controller1.leftStick.right.isPressed)
+            if (controller2.leftStick.right.isPressed)
             {
                 if (transform.localPosition.x < (2.553f - distance) * 4f)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
             }
-            else if (controller1.leftStick.left.isPressed)
+            else if (controller2.leftStick.left.isPressed)
             {
                 if (transform.localPosition.x > -(2.553f - distance) * 4f)
                 {
@@ -147,12 +147,12 @@ public class bambooPlayerScript2 : MonoBehaviour
                 transform.localPosition = grabLocation;
             }
             //Controller Version
-            if (controller1.rightShoulder.wasPressedThisFrame)
+            if (controller2.rightShoulder.wasPressedThisFrame)
             {
                 grabLocation = transform.localPosition;
                 GetComponent<SpriteRenderer>().color = Color.red;
             }
-            if (controller1.rightShoulder.isPressed)
+            if (controller2.rightShoulder.isPressed)
             {
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
 
@@ -162,7 +162,7 @@ public class bambooPlayerScript2 : MonoBehaviour
                 Debug.Log(localFlingDistance);
                 Debug.Log(Vector2.Distance(transform.localPosition, grabLocation));
             }
-            if (controller1.rightShoulder.wasReleasedThisFrame)
+            if (controller2.rightShoulder.wasReleasedThisFrame)
             {
                 GetComponent<SpriteRenderer>().color = Color.green;
                 speed = baseSpeed;
@@ -212,22 +212,22 @@ public class bambooPlayerScript2 : MonoBehaviour
                 }
             }
             //Controller Version
-            if (controller1.rightShoulder.wasPressedThisFrame)
+            if (controller2.rightShoulder.wasPressedThisFrame)
             {
-                if (controller1.leftStick.up.isPressed)
+                if (controller2.leftStick.up.isPressed)
                 {
                     vertical += 1;
                 }
-                if (controller1.leftStick.down.isPressed)
+                if (controller2.leftStick.down.isPressed)
                 {
                     vertical -= 1;
                 }
-                if (controller1.leftStick.right.isPressed)
+                if (controller2.leftStick.right.isPressed)
                 {
                     horizontal += 1;
                 }
 
-                if (controller1.leftStick.left.isPressed)
+                if (controller2.leftStick.left.isPressed)
                 {
                     horizontal -= 1;
                 }
