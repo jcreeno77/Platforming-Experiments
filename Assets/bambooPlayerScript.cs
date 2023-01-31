@@ -13,6 +13,9 @@ public class bambooPlayerScript : MonoBehaviour
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
 
+    //Animation
+    public Animator animator;
+    public float flingDistance;
     Gamepad controller1;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,9 @@ public class bambooPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetFloat("bendAmount", flingDistance);
+        Debug.Log(flingDistance);
+
         if (root.GetComponent<CollExpScript>().grounded)
         {
             //Handle up and down movement
@@ -131,6 +137,7 @@ public class bambooPlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
+                flingDistance = localFlingDistance;
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
                 //Debug.Log("grabLocation: " + grabLocation);
@@ -140,7 +147,8 @@ public class bambooPlayerScript : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                GetComponent<SpriteRenderer>().color = Color.white;
+                //GetComponent<SpriteRenderer>().color = Color.white;
+                flingDistance = 0;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y+1) * 8f * localFlingDistance);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;
@@ -151,17 +159,20 @@ public class bambooPlayerScript : MonoBehaviour
             if (controller1.rightShoulder.wasPressedThisFrame)
             {
                 grabLocation = transform.localPosition;
-                GetComponent<SpriteRenderer>().color = Color.red;
+                //GetComponent<SpriteRenderer>().color = Color.red;
             }
             if (controller1.rightShoulder.isPressed)
             {
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
+                flingDistance = localFlingDistance;
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
             }
             if (controller1.rightShoulder.wasReleasedThisFrame)
             {
-                GetComponent<SpriteRenderer>().color = Color.white;
+
+                flingDistance = 0;
+                //GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y + 1) * 8f * localFlingDistance);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;

@@ -22,7 +22,7 @@ public class smashBrosCam : MonoBehaviour
 
         transform.position = new Vector3(x, y, -10);
         GetComponent<Camera>().orthographicSize = Mathf.Lerp(GetComponent<Camera>().orthographicSize, distance/2, Time.deltaTime*5);
-        GetComponent<Camera>().orthographicSize = Mathf.Clamp(GetComponent<Camera>().orthographicSize, 2, 200);
+        GetComponent<Camera>().orthographicSize = Mathf.Clamp(GetComponent<Camera>().orthographicSize, 13, 200);
     }
 
 }
