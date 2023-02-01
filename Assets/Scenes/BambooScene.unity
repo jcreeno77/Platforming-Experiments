@@ -150,8 +150,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171279848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7, y: 5.92, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.105, y: 5.261, z: 0}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1361070910}
@@ -172,7 +172,18 @@ MonoBehaviour:
   dashSpeed: 0
   root: {fileID: 1987129246}
   pole: {fileID: 1361070908}
-  animator: {fileID: 1361070916}
+  sprArrayLeft:
+  - {fileID: 21300000, guid: 9193dbef1378a40078b9b9fde1839a00, type: 3}
+  - {fileID: 21300000, guid: d753cf79b14194bf1a184204db78f1ad, type: 3}
+  - {fileID: 21300000, guid: 728a7b096b20845a6b2af9a4ce302dbe, type: 3}
+  - {fileID: 21300000, guid: 25bb596233f3142a3b48a66c32027f20, type: 3}
+  sprArrayRight:
+  - {fileID: 21300000, guid: 9193dbef1378a40078b9b9fde1839a00, type: 3}
+  - {fileID: 21300000, guid: 5bef0cc76119f4c8a9a0f03a9d61fb00, type: 3}
+  - {fileID: 21300000, guid: 927776e30848e4dec92efdb1929c597c, type: 3}
+  - {fileID: 21300000, guid: 632c9524be0b0423cbd0e20b616cd4b9, type: 3}
+  basePole: {fileID: 21300000, guid: 9193dbef1378a40078b9b9fde1839a00, type: 3}
+  animator: {fileID: 0}
   flingDistance: 0
 --- !u!212 &171279851
 SpriteRenderer:
@@ -690,7 +701,6 @@ GameObject:
   - component: {fileID: 1361070913}
   - component: {fileID: 1361070914}
   - component: {fileID: 1361070915}
-  - component: {fileID: 1361070916}
   m_Layer: 0
   m_Name: bamboo
   m_TagString: Untagged
@@ -870,26 +880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b74a3c1dfdda34babf6ef101e05666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &1361070916
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361070908}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f3fe902e8d5ad4f038599606c3b1e348, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1775850337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,6 +993,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 1361070908}
   player2: {fileID: 1361070908}
+  camSpeed: 0
+  camMinSize: 0
 --- !u!1 &1987129246
 GameObject:
   m_ObjectHideFlags: 0

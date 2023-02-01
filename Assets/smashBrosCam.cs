@@ -12,7 +12,7 @@ public class smashBrosCam : MonoBehaviour
     void Start()
     {
         camSpeed = 5;
-        camMinSize = 4;
+        camMinSize = 10;
     }
 
     // Update is called once per frame

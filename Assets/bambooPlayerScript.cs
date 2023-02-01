@@ -7,11 +7,28 @@ public class bambooPlayerScript : MonoBehaviour
 {
     float speed;
     float baseSpeed;
+    float poleHeight;
+    float moveWidth;
+    float arialSpeed = 0f;
+    float maxArialSpeed = 0f;
+    int jumpsLeft = 1;
+    int dashesLeft = 1;
     [SerializeField] float dashSpeed;
     Vector2 grabLocation;
+    Vector2 globalGrabLocation;
     bool onGround = false;
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
+
+    [SerializeField] Sprite[] sprArrayLeft;
+    [SerializeField] Sprite[] sprArrayRight;
+    [SerializeField] Sprite basePole;
+    Sprite poleLeft1;
+    Sprite poleLeft2;
+    Sprite poleLeft3;
+    Sprite poleRight1;
+    Sprite poleRight2;
+    Sprite poleRight3;
 
     //Animation
     public Animator animator;
@@ -20,9 +37,11 @@ public class bambooPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseSpeed = 2f;
+        baseSpeed = 7f;
         speed = baseSpeed;
-        dashSpeed = 8;
+        dashSpeed = 20f;
+        poleHeight = 5.38f*2f;
+        moveWidth = 1f;
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
@@ -33,8 +52,7 @@ public class bambooPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("bendAmount", flingDistance);
-        Debug.Log(flingDistance);
+        //animator.SetFloat("bendAmount", flingDistance);
 
         if (root.GetComponent<CollExpScript>().grounded)
         {
@@ -42,15 +60,15 @@ public class bambooPlayerScript : MonoBehaviour
             float distance = Vector2.Distance(transform.position, root.transform.position);
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                if (distance < 2.553)
+                if (distance < poleHeight)
                 {
                     transform.position += transform.up * Time.deltaTime * speed;
                 }
-                if (transform.localPosition.x > (2.553f - distance) * 4f)
+                if (transform.localPosition.x > (poleHeight - distance) * 4f)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
-                else if (transform.localPosition.x < -(2.553f - distance) * 4)
+                else if (transform.localPosition.x < -(poleHeight - distance) * 4)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
@@ -72,11 +90,11 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.position += transform.up * Time.deltaTime * speed;
                 }
-                if (transform.localPosition.x > (2.553f - distance) * 4f)
+                if (transform.localPosition.x > (poleHeight - distance) * 4f)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
-                else if (transform.localPosition.x < -(2.553f - distance) * 4)
+                else if (transform.localPosition.x < -(poleHeight - distance) * 4)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
@@ -92,14 +110,14 @@ public class bambooPlayerScript : MonoBehaviour
             //Handle side to side mechanics
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                if (transform.localPosition.x < (2.553f - distance)*4f)
+                if (transform.localPosition.x < moveWidth)
                 {
                     transform.position += transform.right * Time.deltaTime * speed/2;
                 }
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (transform.localPosition.x > -(2.553f - distance)*4f)
+                if (transform.localPosition.x > -moveWidth)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed/2;
                 }
@@ -107,37 +125,47 @@ public class bambooPlayerScript : MonoBehaviour
             //Controller version
             if (controller1.leftStick.right.isPressed)
             {
-                if (transform.localPosition.x < (2.553f - distance) * 4f)
+                if (transform.localPosition.x < (poleHeight - distance) * 4f)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
             }
             else if (controller1.leftStick.left.isPressed)
             {
-                if (transform.localPosition.x > -(2.553f - distance) * 4f)
+                if (transform.localPosition.x > -(poleHeight - distance) * 4f)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
             }
             //float xVal = transform.position.x;
             //xVal = Mathf.Clamp(xVal, 0,3f);
-            //Debug.Log(xVal);
             //transform.localPosition = new Vector3(xVal, transform.position.y, transform.position.z);
 
 
             //Handle Grab Mechanics
-        
             float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
             //Debug.Log(localFlingDistance);
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 grabLocation = transform.localPosition;
+                globalGrabLocation = transform.TransformPoint(grabLocation);
                 GetComponent<SpriteRenderer>().color = Color.red;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
-                flingDistance = localFlingDistance;
+                //Debug.Log(localFlingDistance);
+                float select = localFlingDistance / baseSpeed * (sprArrayLeft.Length);
+                //Debug.Log((int)select);
+                if(transform.localPosition.x < 0)
+                {
+                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
+                }
+                else
+                {
+                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
+                }
+                
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
                 //Debug.Log("grabLocation: " + grabLocation);
@@ -150,10 +178,28 @@ public class bambooPlayerScript : MonoBehaviour
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 flingDistance = 0;
                 speed = baseSpeed;
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y+1) * 8f * localFlingDistance);
-                pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;
+                globalGrabLocation = transform.TransformPoint(grabLocation);
+                Vector2 globalPos = transform.TransformPoint(transform.localPosition);
+                Vector2 globalDirectVec = new Vector2(globalGrabLocation.x - globalPos.x, globalGrabLocation.y - globalPos.y);
+                Debug.Log(globalDirectVec);
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(20f * globalDirectVec.x, 10f * globalDirectVec.y);
+                if (transform.localPosition.x >= 0)
+                {
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = 200f + transform.localPosition.x * 350f;
+                }
+                else
+                {
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = -200f + transform.localPosition.x * 350f;
+                }
+
+                //Handles extra details for Pole
+                maxArialSpeed = 0f;
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                pole.GetComponent<SpriteRenderer>().sprite = basePole;
                 transform.localPosition = grabLocation;
+                transform.localPosition = new Vector2(0f, transform.localPosition.y);
+                jumpsLeft = 1;
+                dashesLeft = 1;
             }
             //Controller Version
             if (controller1.rightShoulder.wasPressedThisFrame)
@@ -175,14 +221,37 @@ public class bambooPlayerScript : MonoBehaviour
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y + 1) * 8f * localFlingDistance);
-                pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 150f;
+                pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 550f;
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 transform.localPosition = grabLocation;
             }
         }
         else
         {
-            //arial mechanics
+            //arial Movvement Mechanics
+            Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
+            //arial jump
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (jumpsLeft > 0)
+                {
+                    jumpsLeft -= 1;
+                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
+                }
+            }
+            maxArialSpeed = Mathf.Max(maxArialSpeed, Mathf.Abs(currPoleVel.x));
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x-(10f*Time.deltaTime),-maxArialSpeed,maxArialSpeed),currPoleVel.y);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
+            }
+
+            
+            
+            //arial Dash Mechanics
             float horizontal = 0;
             float vertical = 0;
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -204,18 +273,23 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     horizontal -= 1;
                 }
-                Vector2 dashDirect = new Vector2(horizontal, vertical);
-                pole.GetComponent<Rigidbody2D>().velocity = dashDirect*dashSpeed;
-                pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                float angle = Vector2.Angle(new Vector2(horizontal,vertical),Vector3.up);
-                if(horizontal < 0)
+                if (dashesLeft > 0)
                 {
-                    pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                    dashesLeft -= 1;
+                    Vector2 dashDirect = new Vector2(horizontal, vertical);
+                    pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+                    float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
+                    if (horizontal < 0)
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                    }
+                    else
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
+                    }
                 }
-                else
-                {
-                    pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
-                }
+                
             }
             //Controller Version
             if (controller1.rightShoulder.wasPressedThisFrame)
