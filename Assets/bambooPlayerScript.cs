@@ -25,9 +25,13 @@ public class bambooPlayerScript : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         dashSpeed = 20f;
         poleHeight = 5.38f;
         moveWidth = 1f;
+=======
+        dashSpeed = 8;
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
         dashSpeed = 8;
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
@@ -63,7 +67,11 @@ public class bambooPlayerScript : MonoBehaviour
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 /*if (transform.localPosition.x > (poleHeight - distance) * 4f)
+=======
+                if (transform.localPosition.x > (2.553f - distance) * 4f)
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
                 if (transform.localPosition.x > (2.553f - distance) * 4f)
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)

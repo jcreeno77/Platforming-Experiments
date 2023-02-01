@@ -166,6 +166,7 @@
       "url": "https://packages.unity.com"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     },
     "com.unity.render-pipelines.universal": {
       "version": "12.1.3",
@@ -177,6 +178,8 @@
         "com.unity.render-pipelines.core": "12.1.3",
         "com.unity.shadergraph": "12.1.3"
       }
+=======
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
