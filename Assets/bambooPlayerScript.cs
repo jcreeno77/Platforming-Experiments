@@ -40,7 +40,7 @@ public class bambooPlayerScript : MonoBehaviour
         baseSpeed = 7f;
         speed = baseSpeed;
         dashSpeed = 20f;
-        poleHeight = 5.38f*2f;
+        poleHeight = 5.38f;
         moveWidth = 1f;
 
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -64,14 +64,14 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.position += transform.up * Time.deltaTime * speed;
                 }
-                if (transform.localPosition.x > (poleHeight - distance) * 4f)
+                /*if (transform.localPosition.x > (poleHeight - distance) * 4f)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
                 else if (transform.localPosition.x < -(poleHeight - distance) * 4)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
+                }*/
             
             }
             else if (Input.GetKey(KeyCode.DownArrow))
