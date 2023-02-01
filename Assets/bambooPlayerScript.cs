@@ -156,7 +156,7 @@ public class bambooPlayerScript : MonoBehaviour
                 localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
                 //Debug.Log(localFlingDistance);
                 float select = localFlingDistance / baseSpeed * (sprArrayLeft.Length);
-                //Debug.Log((int)select);
+                Debug.Log((int)select);
                 if(transform.localPosition.x < 0)
                 {
                     pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
