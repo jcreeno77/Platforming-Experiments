@@ -247,10 +247,8 @@ public class bambooPlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
-            }
-
-            
-            
+            }          
+   
             //arial Dash Mechanics
             float horizontal = 0;
             float vertical = 0;
