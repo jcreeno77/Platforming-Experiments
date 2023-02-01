@@ -740,11 +740,15 @@ GameObject:
   - component: {fileID: 1361070914}
   - component: {fileID: 1361070915}
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
   - component: {fileID: 1361070916}
   - component: {fileID: 1361070917}
 >>>>>>> Stashed changes
+=======
+  - component: {fileID: 1361070916}
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
   - component: {fileID: 1361070916}
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
@@ -928,8 +932,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 --- !u!95 &1361070916
@@ -952,6 +959,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!120 &1361070917
 LineRenderer:
@@ -1103,6 +1111,8 @@ LineRenderer:
 >>>>>>> Stashed changes
 =======
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 --- !u!1 &1775850337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,6 +1228,7 @@ MonoBehaviour:
   player1: {fileID: 1361070908}
   player2: {fileID: 1361070908}
 <<<<<<< HEAD
+<<<<<<< HEAD
   camSpeed: 0
   camMinSize: 0
 <<<<<<< Updated upstream
@@ -1256,6 +1267,8 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 =======
 >>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 --- !u!1 &1987129246
