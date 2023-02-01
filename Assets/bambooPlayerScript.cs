@@ -22,7 +22,25 @@ public class bambooPlayerScript : MonoBehaviour
     {
         baseSpeed = 2f;
         speed = baseSpeed;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        dashSpeed = 20f;
+        poleHeight = 5.38f;
+        moveWidth = 1f;
+=======
         dashSpeed = 8;
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+        dashSpeed = 8;
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+        dashSpeed = 8;
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+        dashSpeed = 8;
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
@@ -46,14 +64,30 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.position += transform.up * Time.deltaTime * speed;
                 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                /*if (transform.localPosition.x > (poleHeight - distance) * 4f)
+=======
                 if (transform.localPosition.x > (2.553f - distance) * 4f)
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+                if (transform.localPosition.x > (2.553f - distance) * 4f)
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+                if (transform.localPosition.x > (2.553f - distance) * 4f)
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
+=======
+                if (transform.localPosition.x > (2.553f - distance) * 4f)
+>>>>>>> parent of 475497a (Added animations, arial movement, adjusted direction as well)
                 {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
                 else if (transform.localPosition.x < -(2.553f - distance) * 4)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
+                }*/
             
             }
             else if (Input.GetKey(KeyCode.DownArrow))
