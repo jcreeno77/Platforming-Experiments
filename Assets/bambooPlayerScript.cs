@@ -13,13 +13,14 @@ public class bambooPlayerScript : MonoBehaviour
     float maxArialSpeed = 0f;
     int jumpsLeft = 1;
     int dashesLeft = 1;
+    
     [SerializeField] float dashSpeed;
     Vector2 grabLocation;
     Vector2 globalGrabLocation;
-    bool onGround = false;
+    Vector2 flingDirect;
+    public bool poleGrabbed;
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
-
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
     [SerializeField] Sprite basePole;
@@ -37,11 +38,13 @@ public class bambooPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        poleGrabbed = false;
         baseSpeed = 7f;
         speed = baseSpeed;
         dashSpeed = 20f;
         poleHeight = 5.38f;
         moveWidth = 1f;
+        flingDirect = new Vector2(0f, 0f);
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
@@ -52,7 +55,9 @@ public class bambooPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //animator.SetFloat("bendAmount", flingDistance);
+        //Controller testing
+        //Debug.Log(controller1.leftStick.ReadValue().x);
+        //Debug.Log(controller1.leftStick.ReadValue().y);
 
         if (root.GetComponent<CollExpScript>().grounded)
         {
@@ -72,7 +77,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
                 }*/
-            
+
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
@@ -80,61 +85,57 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.position -= transform.up * Time.deltaTime * speed;
                 }
-            
-            }
-            //Controller version
 
-            if (controller1.leftStick.up.isPressed)
-            {
-                if (distance < 2.553)
-                {
-                    transform.position += transform.up * Time.deltaTime * speed;
-                }
-                if (transform.localPosition.x > (poleHeight - distance) * 4f)
-                {
-                    transform.position -= transform.right * Time.deltaTime * speed / 2;
-                }
-                else if (transform.localPosition.x < -(poleHeight - distance) * 4)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
             }
-            else if (controller1.leftStick.down.isPressed)
-            {
-                if (distance > 0.3)
-                {
-                    transform.position -= transform.up * Time.deltaTime * speed;
-                }
-            }
-
             //Handle side to side mechanics
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 if (transform.localPosition.x < moveWidth)
                 {
-                    transform.position += transform.right * Time.deltaTime * speed/2;
+                    transform.position += transform.right * Time.deltaTime * speed / 2;
                 }
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 if (transform.localPosition.x > -moveWidth)
                 {
-                    transform.position -= transform.right * Time.deltaTime * speed/2;
-                }
-            }
-            //Controller version
-            if (controller1.leftStick.right.isPressed)
-            {
-                if (transform.localPosition.x < (poleHeight - distance) * 4f)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
-            }
-            else if (controller1.leftStick.left.isPressed)
-            {
-                if (transform.localPosition.x > -(poleHeight - distance) * 4f)
-                {
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
+                }
+            }
+
+            //CONTROLLER VERSION
+            if (!poleGrabbed)
+            {
+                //Handle up and down mechanics
+                if (controller1.leftStick.up.isPressed)
+                {
+                    if (distance < poleHeight)
+                    {
+                        transform.position += transform.up * Time.deltaTime * speed;
+                    }
+
+                }
+                else if (controller1.leftStick.down.isPressed)
+                {
+                    if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
+                    {
+                        transform.position -= transform.up * Time.deltaTime * speed;
+                    }
+                }
+                //Handle side to side mechanics
+                if (controller1.leftStick.right.isPressed)
+                {
+                    if (transform.localPosition.x < moveWidth)
+                    {
+                        transform.position += transform.right * Time.deltaTime * speed / 2;
+                    }
+                }
+                else if (controller1.leftStick.left.isPressed)
+                {
+                    if (transform.localPosition.x > -moveWidth)
+                    {
+                        transform.position -= transform.right * Time.deltaTime * speed / 2;
+                    }
                 }
             }
             //float xVal = transform.position.x;
@@ -157,7 +158,7 @@ public class bambooPlayerScript : MonoBehaviour
                 //Debug.Log(localFlingDistance);
                 float select = localFlingDistance / baseSpeed * (sprArrayLeft.Length);
                 Debug.Log((int)select);
-                if(transform.localPosition.x < 0)
+                if (transform.localPosition.x < 0)
                 {
                     pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
                 }
@@ -165,7 +166,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
                 }
-                
+
 
                 speed = baseSpeed - localFlingDistance;    //*1.2f;
                 //Debug.Log("grabLocation: " + grabLocation);
@@ -201,34 +202,78 @@ public class bambooPlayerScript : MonoBehaviour
                 jumpsLeft = 1;
                 dashesLeft = 1;
             }
-            //Controller Version
+
+            //CONTROLLER VERSION
             if (controller1.rightShoulder.wasPressedThisFrame)
             {
+                poleGrabbed = true;
                 grabLocation = transform.localPosition;
+                flingDirect = new Vector2(0f, 0f);
                 //GetComponent<SpriteRenderer>().color = Color.red;
             }
             if (controller1.rightShoulder.isPressed)
             {
-                localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
-                flingDistance = localFlingDistance;
+                float controllerXVal = controller1.leftStick.ReadValue().x;
+                float controllerYVal = controller1.leftStick.ReadValue().y;
+                flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * 5f), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * 5f));
 
-                speed = baseSpeed - localFlingDistance;    //*1.2f;
+                //GetAngle
+                //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
+
+                //pole anim
+                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * (sprArrayLeft.Length);
+                //Debug.Log((int)select);
+                if (controllerXVal < 0)
+                {
+                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
+                }
+                else
+                {
+                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
+                }
+
             }
             if (controller1.rightShoulder.wasReleasedThisFrame)
             {
-
-                flingDistance = 0;
+                float angle = Vector2.Angle(pole.transform.up, flingDirect);
+                maxArialSpeed = 0f;
+                poleGrabbed = false;
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(-transform.localPosition.x / 2 * pole.transform.right.x, (pole.transform.right.y + 1) * 8f * localFlingDistance);
-                pole.GetComponent<Rigidbody2D>().angularVelocity = transform.localPosition.x * 550f;
+                pole.GetComponent<Rigidbody2D>().velocity = flingDirect * 25f;
+                
+                //Handles angular Velocity
+                float angDisToNinety = Mathf.Abs(90 - angle);
+                float amplifier = (90 - angDisToNinety) / 90;
+                float angVel = (-flingDirect.x * 700f * amplifier);
+                if (pole.transform.up.y >= 0)
+                {
+                    if (angVel >= 0)
+                    {
+                        angVel = Mathf.Clamp(angVel, 300, 700);
+                    }
+                    else
+                    {
+                        angVel = Mathf.Clamp(angVel, -700, -300);
+                    }
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
+
+
+                }
+                else
+                {
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = flingDirect.x * 250f + (550f * amplifier);
+                }
+
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                transform.localPosition = grabLocation;
+                pole.GetComponent<SpriteRenderer>().sprite = basePole;
+                jumpsLeft = 1;
+                dashesLeft = 1;
             }
         }
         else
         {
-            //arial Movvement Mechanics
+            //arial Movement Mechanics
             Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
             //arial jump
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -249,7 +294,7 @@ public class bambooPlayerScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
             }          
    
-            //arial Dash Mechanics
+            //AERIAL DASH MECHANICS
             float horizontal = 0;
             float vertical = 0;
             if (Input.GetKeyDown(KeyCode.LeftShift))
