@@ -176,6 +176,7 @@ public class bambooPlayerScript : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                //refer to animator
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 flingDistance = 0;
                 speed = baseSpeed;
@@ -221,7 +222,9 @@ public class bambooPlayerScript : MonoBehaviour
                 //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
 
                 //pole anim
-                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * (sprArrayLeft.Length);
+                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * 5f;
+                animator.SetInteger("selector", (int)select);
+                
                 //Debug.Log((int)select);
                 if (controllerXVal < 0)
                 {
@@ -246,6 +249,7 @@ public class bambooPlayerScript : MonoBehaviour
                 float angDisToNinety = Mathf.Abs(90 - angle);
                 float amplifier = (90 - angDisToNinety) / 90;
                 float angVel = (-flingDirect.x * 700f * amplifier);
+
                 if (pole.transform.up.y >= 0)
                 {
                     if (angVel >= 0)
@@ -266,9 +270,14 @@ public class bambooPlayerScript : MonoBehaviour
                 }
 
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                
+                //reset to straight pole: PASS TO ANIMATOR
+                // timers stagger reflex animation -> basePole
+                //setBool in Animator BEGIN Release
                 pole.GetComponent<SpriteRenderer>().sprite = basePole;
                 jumpsLeft = 1;
                 dashesLeft = 1;
+                flingDirect = new Vector2(0f, 0f);
             }
         }
         else
@@ -335,6 +344,17 @@ public class bambooPlayerScript : MonoBehaviour
                 
             }
             //Controller Version
+            //aerial Jump
+            if (controller1.buttonSouth.wasPressedThisFrame)
+            {
+                if (jumpsLeft > 0)
+                {
+                    jumpsLeft -= 1;
+                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
+                }
+            }
+
+            //aerial Dash
             if (controller1.rightShoulder.wasPressedThisFrame)
             {
                 if (controller1.leftStick.up.isPressed)
@@ -359,21 +379,22 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     vertical = -1;
                 }
-
-                Vector2 dashDirect = new Vector2(horizontal, vertical);
-                
-                pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
-                pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
-                if (horizontal < 0)
+                if (dashesLeft > 0 && vertical == -1)
                 {
-                    pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                    dashesLeft -= 1;
+                    Vector2 dashDirect = new Vector2(horizontal, vertical);
+                    pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+                    float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
+                    if (horizontal < 0)
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                    }
+                    else
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
+                    }
                 }
-                else
-                {
-                    pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
-                }
-                
             }
         }
     }
