@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class bambooPoleScript : MonoBehaviour
 {
+    [SerializeField] float gravity;
+    [SerializeField] GameObject root;
+    [SerializeField] GameObject player;
     Vector2 startPos;
     Quaternion startRotation;
     Rigidbody2D body;
@@ -12,6 +15,7 @@ public class bambooPoleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gravity = 20f;
         startPos = transform.position;
         body = GetComponent<Rigidbody2D>();
         startRotation = transform.rotation;
@@ -25,13 +29,31 @@ public class bambooPoleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) || controller1.buttonWest.wasPressedThisFrame)
+        //added Gravity
+        if (body.bodyType == RigidbodyType2D.Dynamic)
+        {
+            body.AddForce(new Vector2(0f, -gravity));
+        }
+
+        //reduce top speed
+        
+        
+
+        if (Input.GetKeyDown(KeyCode.R) || controller1.startButton.wasPressedThisFrame)
         {
             transform.position = startPos;
             transform.rotation = startRotation;
             body.bodyType = RigidbodyType2D.Kinematic;
             body.velocity = new Vector2(0f, 0f);
             body.angularVelocity = 0f;
+            root.SetActive(true);
+
+            //set reset player stuff
+            Destroy(player.gameObject.GetComponent<Rigidbody2D>());
+            player.GetComponent<bambooPlayerScript>().offPole = false;
+            player.transform.parent = transform;
+            player.transform.localPosition = new Vector2(-.58f, 4.94f);
+            player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
 

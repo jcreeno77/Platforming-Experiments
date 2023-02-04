@@ -4053,8 +4053,8 @@ GameObject:
   - component: {fileID: 171279849}
   - component: {fileID: 171279851}
   - component: {fileID: 171279850}
-  - component: {fileID: 171279852}
   - component: {fileID: 171279853}
+  - component: {fileID: 171279854}
   m_Layer: 0
   m_Name: bambooPlayer
   m_TagString: Untagged
@@ -4070,7 +4070,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171279848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.105, y: 5.261, z: 0}
+  m_LocalPosition: {x: -0.58, y: 5.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4090,9 +4090,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 0
+  flingForce: 0
   poleGrabbed: 0
   root: {fileID: 1987129246}
   pole: {fileID: 1361070908}
+  frictionless: {fileID: 0}
   sprArrayLeft:
   - {fileID: 21300000, guid: 0b0b79b2eb25a42f8b728751c858530b, type: 3}
   - {fileID: 21300000, guid: 86a83d3562d7e47c992d86791d156080, type: 3}
@@ -4158,32 +4160,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &171279852
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171279848}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.18, y: 3.95}
-    newSize: {x: 2.18, y: 3.95}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!95 &171279853
 Animator:
   serializedVersion: 4
@@ -4204,6 +4180,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &171279854
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171279848}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 4fbe4d085ac9fd242aa08745dfdbfec9, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.34752584, y: 0.27465737}
+  serializedVersion: 2
+  m_Radius: 0.9156078
 --- !u!1 &171940710
 GameObject:
   m_ObjectHideFlags: 0
@@ -26122,6 +26114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b74a3c1dfdda34babf6ef101e05666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravity: 0
+  root: {fileID: 1987129246}
+  player: {fileID: 171279848}
 --- !u!1 &1362139092
 GameObject:
   m_ObjectHideFlags: 0

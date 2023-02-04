@@ -13,14 +13,17 @@ public class bambooPlayerScript : MonoBehaviour
     float maxArialSpeed = 0f;
     int jumpsLeft = 1;
     int dashesLeft = 1;
+    public bool offPole;
     
     [SerializeField] float dashSpeed;
+    [SerializeField] float flingForce;
     Vector2 grabLocation;
     Vector2 globalGrabLocation;
     Vector2 flingDirect;
     public bool poleGrabbed;
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
+    [SerializeField] PhysicMaterial frictionless;
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
     [SerializeField] Sprite basePole;
@@ -38,10 +41,12 @@ public class bambooPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        flingForce = 50f;
+        dashSpeed = 50f;
         poleGrabbed = false;
         baseSpeed = 7f;
         speed = baseSpeed;
-        dashSpeed = 20f;
+        
         poleHeight = 5.38f;
         moveWidth = 1f;
         flingDirect = new Vector2(0f, 0f);
@@ -55,10 +60,7 @@ public class bambooPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Controller testing
-        //Debug.Log(controller1.leftStick.ReadValue().x);
-        //Debug.Log(controller1.leftStick.ReadValue().y);
-
+        
         if (root.GetComponent<CollExpScript>().grounded)
         {
             //Handle up and down movement
@@ -123,7 +125,7 @@ public class bambooPlayerScript : MonoBehaviour
                     }
                 }
                 //Handle side to side mechanics
-                if (controller1.leftStick.right.isPressed)
+                /*if (controller1.leftStick.right.isPressed)
                 {
                     if (transform.localPosition.x < moveWidth)
                     {
@@ -136,7 +138,7 @@ public class bambooPlayerScript : MonoBehaviour
                     {
                         transform.position -= transform.right * Time.deltaTime * speed / 2;
                     }
-                }
+                }*/
             }
             //float xVal = transform.position.x;
             //xVal = Mathf.Clamp(xVal, 0,3f);
@@ -222,8 +224,8 @@ public class bambooPlayerScript : MonoBehaviour
                 //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
 
                 //pole anim
-                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * 5f;
-                animator.SetInteger("selector", (int)select);
+                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * 4f;
+                //animator.SetInteger("selector", (int)select);
                 
                 //Debug.Log((int)select);
                 if (controllerXVal < 0)
@@ -243,7 +245,7 @@ public class bambooPlayerScript : MonoBehaviour
                 poleGrabbed = false;
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
-                pole.GetComponent<Rigidbody2D>().velocity = flingDirect * 25f;
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(flingDirect.x * flingForce, flingDirect.y * flingForce * 1.25f);
                 
                 //Handles angular Velocity
                 float angDisToNinety = Mathf.Abs(90 - angle);
@@ -282,6 +284,23 @@ public class bambooPlayerScript : MonoBehaviour
         }
         else
         {
+
+            //Ground Collision
+            if (Physics2D.IsTouchingLayers(GetComponent<CircleCollider2D>(), 1 << 6))
+            {
+                if (gameObject.GetComponent<Rigidbody2D>() == null)
+                {
+                    transform.parent = null;
+                    gameObject.AddComponent<Rigidbody2D>();
+                    Debug.Log("Disable Root");
+                    root.SetActive(false);
+                    GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                    GetComponent<Rigidbody2D>().angularDrag = 1f;
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
+                    jumpsLeft = 0;
+                    dashesLeft = 0;
+                }
+            }
             //arial Movement Mechanics
             Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
             //arial jump
@@ -306,6 +325,7 @@ public class bambooPlayerScript : MonoBehaviour
             //AERIAL DASH MECHANICS
             float horizontal = 0;
             float vertical = 0;
+            /*
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 if (Input.GetKey(KeyCode.UpArrow))
@@ -342,7 +362,7 @@ public class bambooPlayerScript : MonoBehaviour
                     }
                 }
                 
-            }
+            }*/
             //Controller Version
             //aerial Jump
             if (controller1.buttonSouth.wasPressedThisFrame)
@@ -379,7 +399,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     vertical = -1;
                 }
-                if (dashesLeft > 0 && vertical == -1)
+                if (dashesLeft > 0 && vertical <= 0)
                 {
                     dashesLeft -= 1;
                     Vector2 dashDirect = new Vector2(horizontal, vertical);
@@ -396,6 +416,18 @@ public class bambooPlayerScript : MonoBehaviour
                     }
                 }
             }
+
+            //aerial rotation
+            if (controller1.rightStick.right.isPressed)
+            {
+                pole.GetComponent<Rigidbody2D>().angularVelocity -= 500 * Time.deltaTime;
+            }
+            else if (controller1.rightStick.left.isPressed)
+            {
+                pole.GetComponent<Rigidbody2D>().angularVelocity += 500 * Time.deltaTime;
+            }
+            pole.GetComponent<Rigidbody2D>().angularVelocity = Mathf.Clamp(pole.GetComponent<Rigidbody2D>().angularVelocity, -700f, 700f);
+
         }
     }
 
