@@ -32,7 +32,11 @@ public class CollExpScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                grounded = true;
+                if(!Physics2D.IsTouchingLayers(player1.GetComponent<CircleCollider2D>(), 1 << 6))
+                {
+                    grounded = true;
+                }
+                
                 if (controller1.rightShoulder.isPressed)
                 {
                     player1.GetComponent<bambooPlayerScript>().poleGrabbed = true;
