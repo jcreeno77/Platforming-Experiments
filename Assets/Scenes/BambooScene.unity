@@ -4055,6 +4055,7 @@ GameObject:
   - component: {fileID: 171279850}
   - component: {fileID: 171279853}
   - component: {fileID: 171279854}
+  - component: {fileID: 171279855}
   m_Layer: 0
   m_Name: bambooPlayer
   m_TagString: Untagged
@@ -4197,6 +4198,21 @@ CircleCollider2D:
   m_Offset: {x: 0.34752584, y: 0.27465737}
   serializedVersion: 2
   m_Radius: 0.9156078
+--- !u!114 &171279855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171279848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f71481fe160a494f94caa6e72f638a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pole: {fileID: 1361070908}
+  root: {fileID: 1987129246}
+  inAttack: 0
 --- !u!1 &171940710
 GameObject:
   m_ObjectHideFlags: 0

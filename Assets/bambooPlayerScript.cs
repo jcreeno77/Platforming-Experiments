@@ -9,7 +9,7 @@ public class bambooPlayerScript : MonoBehaviour
     float baseSpeed;
     float poleHeight;
     float moveWidth;
-    float arialSpeed = 0f;
+    //float arialSpeed = 0f;
     float maxArialSpeed = 0f;
     int jumpsLeft = 1;
     int dashesLeft = 1;
@@ -53,6 +53,7 @@ public class bambooPlayerScript : MonoBehaviour
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
+            Debug.Log(Gamepad.all[i]);
             controller1 = Gamepad.all[0];
         }
     }
@@ -60,7 +61,8 @@ public class bambooPlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(controller1.leftStick.ReadValue());
+        //Debug.Log(controller1.rightStick.ReadValue());
         if (root.GetComponent<CollExpScript>().grounded)
         {
             //Handle up and down movement
@@ -278,7 +280,7 @@ public class bambooPlayerScript : MonoBehaviour
                 //setBool in Animator BEGIN Release
                 pole.GetComponent<SpriteRenderer>().sprite = basePole;
                 jumpsLeft = 1;
-                dashesLeft = 1;
+                dashesLeft = 2;
                 flingDirect = new Vector2(0f, 0f);
             }
         }
@@ -363,6 +365,7 @@ public class bambooPlayerScript : MonoBehaviour
                 }
                 
             }*/
+
             //Controller Version
             //aerial Jump
             if (controller1.buttonSouth.wasPressedThisFrame)
@@ -399,7 +402,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     vertical = -1;
                 }
-                if (dashesLeft > 0 && vertical <= 0)
+                if (dashesLeft > 0 /*&& vertical <= 0*/)
                 {
                     dashesLeft -= 1;
                     Vector2 dashDirect = new Vector2(horizontal, vertical);
