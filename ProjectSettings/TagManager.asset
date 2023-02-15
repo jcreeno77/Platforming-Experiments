@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: clouds
+    uniqueID: 2172475
+    locked: 0
+  - name: setPeices
+    uniqueID: 2412106157
+    locked: 0
+  - name: Ground
+    uniqueID: 646830765
+    locked: 0
