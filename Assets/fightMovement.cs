@@ -7,6 +7,7 @@ public class fightMovement : MonoBehaviour
 {
     [SerializeField] GameObject pole;
     [SerializeField] GameObject root;
+    
 
     Gamepad controller1;
     float dashSpeed = 40f;
@@ -18,16 +19,16 @@ public class fightMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < Gamepad.all.Count; i++)
-        {
-            controller1 = Gamepad.all[0];
-        }
-        
+        controller1 = GetComponent<bambooPlayerScript>().controller1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (controller1 == null)
+        {
+            controller1 = GetComponent<bambooPlayerScript>().controller1;
+        }
         if (counter > 0 && !root.GetComponent<CollExpScript>().grounded)
         {
             counter -= Time.deltaTime;
@@ -76,7 +77,7 @@ public class fightMovement : MonoBehaviour
                 if (vertical <= 0)
                 {
                     counter = counterMax; counter = counterMax;
-                    dashDirect = new Vector2(horizontal, vertical);
+                    dashDirect = new Vector2(horizontal, vertical).normalized;
                     pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
                     pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                     float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);

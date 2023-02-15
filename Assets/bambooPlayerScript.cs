@@ -14,6 +14,7 @@ public class bambooPlayerScript : MonoBehaviour
     int jumpsLeft = 1;
     int dashesLeft = 1;
     public bool offPole;
+    public bool dead;
     
     [SerializeField] float dashSpeed;
     [SerializeField] float flingForce;
@@ -23,6 +24,7 @@ public class bambooPlayerScript : MonoBehaviour
     public bool poleGrabbed;
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
+    [SerializeField] GameObject controllerRef;
     [SerializeField] PhysicMaterial frictionless;
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
@@ -37,7 +39,8 @@ public class bambooPlayerScript : MonoBehaviour
     //Animation
     public Animator animator;
     public float flingDistance;
-    Gamepad controller1;
+    public Gamepad controller1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -53,21 +56,55 @@ public class bambooPlayerScript : MonoBehaviour
 
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
-            Debug.Log(Gamepad.all[i]);
-            controller1 = Gamepad.all[0];
+            if (i >= 4)
+            {
+                break;
+            }
+            //controller1 = Gamepad.all[i];
+            Debug.Log(controllerRef.GetComponent<controllerUsedArray>().controllerArray[0]);
+            Debug.Log(i);
+            bool iInArr = false;
+            foreach (int item in controllerRef.GetComponent<controllerUsedArray>().controllerArray)
+            {
+                if (i == item)
+                {
+                    iInArr = true;
+                }
+            }
+            if (!iInArr)
+            {
+                controllerRef.GetComponent<controllerUsedArray>().controllerArray[i] = i;
+                controller1 = Gamepad.all[i];
+                break;
+            }
+        }
+        if (controller1 == null)
+        {
+            Destroy(transform.parent.gameObject);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(controller1.leftStick.ReadValue());
-        //Debug.Log(controller1.rightStick.ReadValue());
+        if (dead)
+        {
+            dead = false;
+            transform.parent = null;
+            gameObject.AddComponent<Rigidbody2D>();
+            root.SetActive(false);
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            GetComponent<Rigidbody2D>().angularDrag = 1f;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
+            jumpsLeft = 0;
+            dashesLeft = 0;
+        }
+        
         if (root.GetComponent<CollExpScript>().grounded)
         {
             //Handle up and down movement
             float distance = Vector2.Distance(transform.position, root.transform.position);
-            if (Input.GetKey(KeyCode.UpArrow))
+            /*if (Input.GetKey(KeyCode.UpArrow))
             {
                 if (distance < poleHeight)
                 {
@@ -80,7 +117,7 @@ public class bambooPlayerScript : MonoBehaviour
                 else if (transform.localPosition.x < -(poleHeight - distance) * 4)
                 {
                     transform.position += transform.right * Time.deltaTime * speed / 2;
-                }*/
+                }
 
             }
             else if (Input.GetKey(KeyCode.DownArrow))
@@ -106,50 +143,6 @@ public class bambooPlayerScript : MonoBehaviour
                     transform.position -= transform.right * Time.deltaTime * speed / 2;
                 }
             }
-
-            //CONTROLLER VERSION
-            if (!poleGrabbed)
-            {
-                //Handle up and down mechanics
-                if (controller1.leftStick.up.isPressed)
-                {
-                    if (distance < poleHeight)
-                    {
-                        transform.position += transform.up * Time.deltaTime * speed;
-                    }
-
-                }
-                else if (controller1.leftStick.down.isPressed)
-                {
-                    if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
-                    {
-                        transform.position -= transform.up * Time.deltaTime * speed;
-                    }
-                }
-                //Handle side to side mechanics
-                /*if (controller1.leftStick.right.isPressed)
-                {
-                    if (transform.localPosition.x < moveWidth)
-                    {
-                        transform.position += transform.right * Time.deltaTime * speed / 2;
-                    }
-                }
-                else if (controller1.leftStick.left.isPressed)
-                {
-                    if (transform.localPosition.x > -moveWidth)
-                    {
-                        transform.position -= transform.right * Time.deltaTime * speed / 2;
-                    }
-                }*/
-            }
-            //float xVal = transform.position.x;
-            //xVal = Mathf.Clamp(xVal, 0,3f);
-            //transform.localPosition = new Vector3(xVal, transform.position.y, transform.position.z);
-
-
-            //Handle Grab Mechanics
-            float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
-            //Debug.Log(localFlingDistance);
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 grabLocation = transform.localPosition;
@@ -207,7 +200,51 @@ public class bambooPlayerScript : MonoBehaviour
                 jumpsLeft = 1;
                 dashesLeft = 1;
             }
+             */
 
+
+
+            //Handle side to side mechanics
+            /*if (controller1.leftStick.right.isPressed)
+            {
+                if (transform.localPosition.x < moveWidth)
+                {
+                    transform.position += transform.right * Time.deltaTime * speed / 2;
+                }
+            }
+            else if (controller1.leftStick.left.isPressed)
+            {
+                if (transform.localPosition.x > -moveWidth)
+                {
+                    transform.position -= transform.right * Time.deltaTime * speed / 2;
+                }
+            }*/
+
+            //CONTROLLER VERSION
+            if (!poleGrabbed)
+            {
+                //Handle up and down mechanics
+                if (controller1.leftStick.up.isPressed)
+                {
+                    if (distance < poleHeight)
+                    {
+                        transform.position += transform.up * Time.deltaTime * speed;
+                    }
+
+                }
+                else if (controller1.leftStick.down.isPressed)
+                {
+                    if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
+                    {
+                        transform.position -= transform.up * Time.deltaTime * speed;
+                    }
+                }
+                
+            }
+
+            //Handle Grab Mechanics
+            float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
+            //Debug.Log(localFlingDistance);
             //CONTROLLER VERSION
             if (controller1.rightShoulder.wasPressedThisFrame)
             {
@@ -228,9 +265,10 @@ public class bambooPlayerScript : MonoBehaviour
                 //pole anim
                 float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.1f * 4f;
                 //animator.SetInteger("selector", (int)select);
-                
+
                 //Debug.Log((int)select);
-                if (controllerXVal < 0)
+                float flingAngle = Vector2.Angle(transform.right, -flingDirect);
+                if (flingAngle > 90)
                 {
                     pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
                 }
@@ -248,30 +286,32 @@ public class bambooPlayerScript : MonoBehaviour
                 //GetComponent<SpriteRenderer>().color = Color.white;
                 speed = baseSpeed;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(flingDirect.x * flingForce, flingDirect.y * flingForce * 1.25f);
-                
+
                 //Handles angular Velocity
-                float angDisToNinety = Mathf.Abs(90 - angle);
-                float amplifier = (90 - angDisToNinety) / 90;
-                float angVel = (-flingDirect.x * 700f * amplifier);
-
-                if (pole.transform.up.y >= 0)
+                float flingAngle = Vector2.Angle(transform.right, new Vector2(controller1.leftStick.ReadValue().x, controller1.leftStick.ReadValue().y));
+                float amplifier;
+                //Sets amplifier
+                if (flingAngle > 90)
                 {
-                    if (angVel >= 0)
-                    {
-                        angVel = Mathf.Clamp(angVel, 300, 700);
-                    }
-                    else
-                    {
-                        angVel = Mathf.Clamp(angVel, -700, -300);
-                    }
-                    pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
-
-
+                    amplifier = -flingAngle/180;
                 }
                 else
                 {
-                    pole.GetComponent<Rigidbody2D>().angularVelocity = flingDirect.x * 250f + (550f * amplifier);
+                    amplifier = (180-flingAngle)/180;
                 }
+                //Sets Anglular Velocity
+                float angVel = (flingDirect.magnitude * 700f * amplifier);
+                //Adjusts min and max clamp
+                if (angVel >= 0)
+                {
+                    angVel = Mathf.Clamp(angVel, 300, 700);
+                }
+                else
+                {
+                    angVel = Mathf.Clamp(angVel, -700, -300);
+                }
+                //Activates da spin
+                pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
 
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 
@@ -294,7 +334,6 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     transform.parent = null;
                     gameObject.AddComponent<Rigidbody2D>();
-                    Debug.Log("Disable Root");
                     root.SetActive(false);
                     GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                     GetComponent<Rigidbody2D>().angularDrag = 1f;
@@ -368,7 +407,7 @@ public class bambooPlayerScript : MonoBehaviour
 
             //Controller Version
             //aerial Jump
-            if (controller1.buttonSouth.wasPressedThisFrame)
+            if (controller1.buttonSouth.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
             {
                 if (jumpsLeft > 0)
                 {
@@ -378,7 +417,7 @@ public class bambooPlayerScript : MonoBehaviour
             }
 
             //aerial Dash
-            if (controller1.rightShoulder.wasPressedThisFrame)
+            if (controller1.rightShoulder.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
             {
                 if (controller1.leftStick.up.isPressed)
                 {
@@ -405,7 +444,7 @@ public class bambooPlayerScript : MonoBehaviour
                 if (dashesLeft > 0 /*&& vertical <= 0*/)
                 {
                     dashesLeft -= 1;
-                    Vector2 dashDirect = new Vector2(horizontal, vertical);
+                    Vector2 dashDirect = new Vector2(horizontal, vertical).normalized;
                     pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
                     pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                     float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
@@ -434,13 +473,4 @@ public class bambooPlayerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        for (int i = 0; i < collision.contactCount; i++)
-        {
-            Vector2 norm = collision.GetContact(i).normal;
-            print(norm);
-            //onGround |= (norm.y >= .9f);
-        }
-    } 
 }
