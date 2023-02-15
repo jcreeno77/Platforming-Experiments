@@ -6,21 +6,23 @@ using UnityEngine.InputSystem;
 public class CollExpScript : MonoBehaviour
 {
     [SerializeField] GameObject pole;
-    [SerializeField] GameObject player1;
+    [SerializeField] GameObject player;
     Gamepad controller1;
     public bool grounded = false;
+    public bool playerHit = false;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < Gamepad.all.Count; i++)
-        {
-            controller1 = Gamepad.all[0];
-        }
+        controller1 = player.GetComponent<bambooPlayerScript>().controller1;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (controller1 == null)
+        {
+            controller1 = player.GetComponent<bambooPlayerScript>().controller1;
+        }
         //Debug.Log(Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6));
         //detects if collided
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(),1 << 6))
@@ -32,14 +34,14 @@ public class CollExpScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                if(!Physics2D.IsTouchingLayers(player1.GetComponent<CircleCollider2D>(), 1 << 6))
+                if(!Physics2D.IsTouchingLayers(player.GetComponent<CircleCollider2D>(), 1 << 6))
                 {
                     grounded = true;
                 }
                 
                 if (controller1.rightShoulder.isPressed)
                 {
-                    player1.GetComponent<bambooPlayerScript>().poleGrabbed = true;
+                    player.GetComponent<bambooPlayerScript>().poleGrabbed = true;
                 }
             }
         }
@@ -47,9 +49,14 @@ public class CollExpScript : MonoBehaviour
         {
             grounded = false;
         }
+        if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 8))
+        {
+            playerHit = true;
+        }
+        else
+        {
+            playerHit = false;
+        }
     }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //Debug.Log("coll");
-    }
+
 }

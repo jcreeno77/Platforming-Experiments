@@ -15,24 +15,25 @@ public class bambooPoleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gravity = 20f;
+        gravity = 2500;
         startPos = transform.position;
         body = GetComponent<Rigidbody2D>();
         startRotation = transform.rotation;
 
-        for (int i = 0; i < Gamepad.all.Count; i++)
-        {
-            controller1 = Gamepad.all[0];
-        }
+        controller1 = player.GetComponent<bambooPlayerScript>().controller1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (controller1 == null)
+        {
+            controller1 = player.GetComponent<bambooPlayerScript>().controller1;
+        }
         //added Gravity
         if (body.bodyType == RigidbodyType2D.Dynamic)
         {
-            body.AddForce(new Vector2(0f, -gravity));
+            body.AddForce(new Vector2(0f, -gravity*Time.deltaTime));
         }
 
         //reduce top speed
@@ -59,12 +60,15 @@ public class bambooPoleScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        for (int i = 0; i < collision.contactCount; i++)
+        //Debug.Log(collision.transform.tag);
+        if (collision.transform.tag == "Player" && collision.transform != player.transform && root.GetComponent<CollExpScript>().playerHit)
         {
-            Vector2 norm = collision.GetContact(i).normal;
-            //print(norm);
-            //onGround |= (norm.y >= .9f);
+            Debug.Log("KILL");
+            if(collision.transform.Find("bambooPlayer") != null)
+            {
+                collision.transform.Find("bambooPlayer").gameObject.GetComponent<bambooPlayerScript>().dead = true;
+            }
+            
         }
     }
 }
