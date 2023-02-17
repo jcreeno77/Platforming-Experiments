@@ -17,6 +17,10 @@ public class fightMovement : MonoBehaviour
     public bool inAttack = false;
     Vector2 dashDirect;
     // Start is called before the first frame update
+    private void Reset()
+    {
+        controller1 = GetComponent<bambooPlayerScript>().controller1;
+    }
     void Start()
     {
         controller1 = GetComponent<bambooPlayerScript>().controller1;

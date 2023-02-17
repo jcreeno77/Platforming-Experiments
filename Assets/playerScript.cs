@@ -347,9 +347,7 @@ public class playerScript : MonoBehaviour
                     _upsideDown = true;
                     
                 }
-                
             }
-            
         }
     }
 }

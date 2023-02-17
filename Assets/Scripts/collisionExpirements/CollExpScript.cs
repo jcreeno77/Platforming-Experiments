@@ -17,12 +17,16 @@ public class CollExpScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
         if (controller1 == null)
         {
             controller1 = player.GetComponent<bambooPlayerScript>().controller1;
         }
+    }
+    void FixedUpdate()
+    {
+        
         //Debug.Log(Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6));
         //detects if collided
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(),1 << 6))

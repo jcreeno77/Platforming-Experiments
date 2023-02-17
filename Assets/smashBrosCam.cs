@@ -12,7 +12,7 @@ public class smashBrosCam : MonoBehaviour
     void Start()
     {
         camSpeed = 5;
-        camMinSize = 12;
+        camMinSize = 15;
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class smashBrosCam : MonoBehaviour
 
         transform.position = new Vector3(x, y, -10);
         GetComponent<Camera>().orthographicSize = Mathf.Lerp(GetComponent<Camera>().orthographicSize, distance/2, Time.deltaTime* camSpeed);
-        GetComponent<Camera>().orthographicSize = Mathf.Clamp(GetComponent<Camera>().orthographicSize, camMinSize, 200);
+        GetComponent<Camera>().orthographicSize = Mathf.Clamp(GetComponent<Camera>().orthographicSize, camMinSize, 160);
     }
 
 }
