@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class bambooPlayerScript : MonoBehaviour
+public class bambooPlayerAutoScript : MonoBehaviour
 {
     float speed;
     float baseSpeed;
@@ -15,27 +15,20 @@ public class bambooPlayerScript : MonoBehaviour
     int dashesLeft = 1;
     public bool offPole;
     public bool dead;
-    
+
     [SerializeField] float dashSpeed;
     [SerializeField] float flingForce;
     Vector2 grabLocation;
     Vector2 globalGrabLocation;
     Vector2 flingDirect;
     public bool poleGrabbed;
-    [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
     [SerializeField] GameObject controllerRef;
-    [SerializeField] GameObject partEff;
     [SerializeField] PhysicMaterial frictionless;
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
-    [SerializeField] Sprite basePole;
-    Sprite poleLeft1;
-    Sprite poleLeft2;
-    Sprite poleLeft3;
-    Sprite poleRight1;
-    Sprite poleRight2;
-    Sprite poleRight3;
+    public Sprite basePole;
+    [SerializeField] Sprite spinningPole;
 
     //Animation
     public Animator animator;
@@ -45,16 +38,6 @@ public class bambooPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     private void Reset()
     {
-        flingForce = 50f;
-        dashSpeed = 50f;
-        poleGrabbed = false;
-        baseSpeed = 7f;
-        speed = baseSpeed;
-        
-        poleHeight = 5.38f;
-        moveWidth = 1f;
-        flingDirect = new Vector2(0f, 0f);
-
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
             if (i >= 4)
@@ -87,7 +70,7 @@ public class bambooPlayerScript : MonoBehaviour
         poleGrabbed = false;
         baseSpeed = 7f;
         speed = baseSpeed;
-        
+
         poleHeight = 5.38f;
         moveWidth = 1f;
         flingDirect = new Vector2(0f, 0f);
@@ -121,29 +104,7 @@ public class bambooPlayerScript : MonoBehaviour
             Destroy(transform.parent.gameObject);
         }
     }
-    private void FixedUpdate()
-    {
-        //Ground Collision
-        if (Physics2D.IsTouchingLayers(GetComponent<CircleCollider2D>(), 1 << 6) && !root.GetComponent<CollExpScript>().grounded)
-        {
-            if (gameObject.GetComponent<Rigidbody2D>() == null)
-            {
-                transform.parent = null;
-                gameObject.AddComponent<Rigidbody2D>();
-                root.SetActive(false);
-                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                GetComponent<Rigidbody2D>().angularDrag = 1f;
-                GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
-                jumpsLeft = 0;
-                dashesLeft = 0;
-                GetComponent<SpriteRenderer>().color = Color.red;
-                dead = true;
-                GameObject pF = Instantiate(partEff);
-                pF.transform.position = transform.position;
 
-            }
-        }
-    }
 
     // Update is called once per frame
     void Update()
@@ -153,157 +114,18 @@ public class bambooPlayerScript : MonoBehaviour
             dead = false;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
-            root.SetActive(false);
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             GetComponent<Rigidbody2D>().angularDrag = 1f;
             GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
             jumpsLeft = 0;
             dashesLeft = 0;
-            GetComponent<SpriteRenderer>().color = Color.red;
         }
-        
-        if (root.GetComponent<CollExpScript>().grounded)
+        //Debug.Log("working");
+        //Debug.Log(pole.GetComponent<bambooPoleAutoScript>().grounded);
+        if (pole.GetComponent<bambooPoleAutoScript>().grounded)
         {
-            //Handle up and down movement
-            float distance = Vector2.Distance(transform.position, root.transform.position);
-            /*if (Input.GetKey(KeyCode.UpArrow))
-            {
-                if (distance < poleHeight)
-                {
-                    transform.position += transform.up * Time.deltaTime * speed;
-                }
-                /*if (transform.localPosition.x > (poleHeight - distance) * 4f)
-                {
-                    transform.position -= transform.right * Time.deltaTime * speed / 2;
-                }
-                else if (transform.localPosition.x < -(poleHeight - distance) * 4)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
-
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                if (distance > 0.3)
-                {
-                    transform.position -= transform.up * Time.deltaTime * speed;
-                }
-
-            }
-            //Handle side to side mechanics
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (transform.localPosition.x < moveWidth)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
-            }
-            else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                if (transform.localPosition.x > -moveWidth)
-                {
-                    transform.position -= transform.right * Time.deltaTime * speed / 2;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                grabLocation = transform.localPosition;
-                globalGrabLocation = transform.TransformPoint(grabLocation);
-                GetComponent<SpriteRenderer>().color = Color.red;
-            }
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
-                //Debug.Log(localFlingDistance);
-                float select = localFlingDistance / baseSpeed * (sprArrayLeft.Length);
-                Debug.Log((int)select);
-                if (transform.localPosition.x < 0)
-                {
-                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
-                }
-                else
-                {
-                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
-                }
-
-
-                speed = baseSpeed - localFlingDistance;    //*1.2f;
-                //Debug.Log("grabLocation: " + grabLocation);
-                //Debug.Log("localPosition " + transform.localPosition);
-                //Debug.Log(localFlingDistance);
-                //Debug.Log(Vector2.Distance(transform.localPosition, grabLocation));
-            }
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                //refer to animator
-                //GetComponent<SpriteRenderer>().color = Color.white;
-                flingDistance = 0;
-                speed = baseSpeed;
-                globalGrabLocation = transform.TransformPoint(grabLocation);
-                Vector2 globalPos = transform.TransformPoint(transform.localPosition);
-                Vector2 globalDirectVec = new Vector2(globalGrabLocation.x - globalPos.x, globalGrabLocation.y - globalPos.y);
-                Debug.Log(globalDirectVec);
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(20f * globalDirectVec.x, 10f * globalDirectVec.y);
-                if (transform.localPosition.x >= 0)
-                {
-                    pole.GetComponent<Rigidbody2D>().angularVelocity = 200f + transform.localPosition.x * 350f;
-                }
-                else
-                {
-                    pole.GetComponent<Rigidbody2D>().angularVelocity = -200f + transform.localPosition.x * 350f;
-                }
-
-                //Handles extra details for Pole
-                maxArialSpeed = 0f;
-                pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                pole.GetComponent<SpriteRenderer>().sprite = basePole;
-                transform.localPosition = grabLocation;
-                transform.localPosition = new Vector2(0f, transform.localPosition.y);
-                jumpsLeft = 1;
-                dashesLeft = 1;
-            }
-             */
-
-
-
-            //Handle side to side mechanics
-            /*if (controller1.leftStick.right.isPressed)
-            {
-                if (transform.localPosition.x < moveWidth)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
-            }
-            else if (controller1.leftStick.left.isPressed)
-            {
-                if (transform.localPosition.x > -moveWidth)
-                {
-                    transform.position -= transform.right * Time.deltaTime * speed / 2;
-                }
-            }*/
-
-            //CONTROLLER VERSION
-            if (!poleGrabbed)
-            {
-                //Handle up and down mechanics
-                if (controller1.leftStick.up.isPressed)
-                {
-                    if (distance < poleHeight)
-                    {
-                        transform.position += transform.up * Time.deltaTime * speed;
-                    }
-
-                }
-                else if (controller1.leftStick.down.isPressed)
-                {
-                    if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
-                    {
-                        transform.position -= transform.up * Time.deltaTime * speed;
-                    }
-                }
-                
-            }
-
+            pole.GetComponent<SpriteRenderer>().sprite = basePole;
+            //Debug.Log("grounded");
             //Handle Grab Mechanics
             float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
             //Debug.Log(localFlingDistance);
@@ -315,8 +137,9 @@ public class bambooPlayerScript : MonoBehaviour
                 flingDirect = new Vector2(0f, 0f);
                 //GetComponent<SpriteRenderer>().color = Color.red;
             }
-            if (controller1.rightShoulder.isPressed && poleGrabbed)
+            if (controller1.rightShoulder.isPressed)
             {
+                Debug.Log("is pressed");
                 float controllerXVal = controller1.leftStick.ReadValue().x;
                 float controllerYVal = controller1.leftStick.ReadValue().y;
                 flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * 15f), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * 15f));
@@ -340,8 +163,10 @@ public class bambooPlayerScript : MonoBehaviour
                 }
 
             }
-            if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
+            if (controller1.rightShoulder.wasReleasedThisFrame)
             {
+                pole.GetComponent<bambooPoleAutoScript>().grounded = false;
+                pole.GetComponent<bambooPoleAutoScript>().timer = .3f;
                 float angle = Vector2.Angle(pole.transform.up, flingDirect);
                 maxArialSpeed = 0f;
                 poleGrabbed = false;
@@ -355,11 +180,11 @@ public class bambooPlayerScript : MonoBehaviour
                 //Sets amplifier
                 if (flingAngle > 90)
                 {
-                    amplifier = -flingAngle/180;
+                    amplifier = -flingAngle / 180;
                 }
                 else
                 {
-                    amplifier = (180-flingAngle)/180;
+                    amplifier = (180 - flingAngle) / 180;
                 }
                 //Sets Anglular Velocity
                 float angVel = (flingDirect.magnitude * 700f * amplifier);
@@ -376,7 +201,7 @@ public class bambooPlayerScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
 
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                
+
                 //reset to straight pole: PASS TO ANIMATOR
                 // timers stagger reflex animation -> basePole
                 //setBool in Animator BEGIN Release
@@ -388,8 +213,8 @@ public class bambooPlayerScript : MonoBehaviour
         }
         else
         {
+            pole.GetComponent<SpriteRenderer>().sprite = spinningPole;
 
-            
             //arial Movement Mechanics
             Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
             //arial jump
@@ -404,13 +229,13 @@ public class bambooPlayerScript : MonoBehaviour
             maxArialSpeed = Mathf.Max(maxArialSpeed, Mathf.Abs(currPoleVel.x));
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x-(10f*Time.deltaTime),-maxArialSpeed,maxArialSpeed),currPoleVel.y);
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x - (10f * Time.deltaTime), -maxArialSpeed, maxArialSpeed), currPoleVel.y);
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
-            }          
-   
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime), -maxArialSpeed, maxArialSpeed), currPoleVel.y);
+            }
+
             //AERIAL DASH MECHANICS
             float horizontal = 0;
             float vertical = 0;
@@ -484,7 +309,7 @@ public class bambooPlayerScript : MonoBehaviour
                 {
                     horizontal -= 1;
                 }
-                
+
                 if (horizontal == 0 && vertical == 0)
                 {
                     vertical = -1;
