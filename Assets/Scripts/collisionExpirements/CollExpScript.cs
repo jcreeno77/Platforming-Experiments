@@ -10,10 +10,13 @@ public class CollExpScript : MonoBehaviour
     Gamepad controller1;
     public bool grounded = false;
     public bool playerHit = false;
+    ParticleSystem partSys;
     // Start is called before the first frame update
     void Start()
     {
         controller1 = player.GetComponent<bambooPlayerScript>().controller1;
+        partSys = GetComponent<ParticleSystem>();
+        partSys.enableEmission = false;
     }
 
     // Update is called once per frame
@@ -56,6 +59,9 @@ public class CollExpScript : MonoBehaviour
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 8))
         {
             playerHit = true;
+            var emission = partSys.emission;
+            emission.enabled = true;
+            partSys.Play();
         }
         else
         {
