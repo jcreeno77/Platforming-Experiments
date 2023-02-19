@@ -65,6 +65,7 @@ public class bambooPoleScript : MonoBehaviour
             player.transform.parent = transform;
             player.transform.localPosition = new Vector2(-.58f, 4.94f);
             player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            player.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
@@ -77,6 +78,7 @@ public class bambooPoleScript : MonoBehaviour
             if(collision.transform.Find("bambooPlayer") != null)
             {
                 collision.transform.Find("bambooPlayer").gameObject.GetComponent<bambooPlayerScript>().dead = true;
+                root.GetComponent<CollExpScript>().playerHitConfirmed = true;
             }
             
         }

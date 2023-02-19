@@ -25,6 +25,7 @@ public class bambooPlayerScript : MonoBehaviour
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
     [SerializeField] GameObject controllerRef;
+    [SerializeField] GameObject partEff;
     [SerializeField] PhysicMaterial frictionless;
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
@@ -135,6 +136,11 @@ public class bambooPlayerScript : MonoBehaviour
                 GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
                 jumpsLeft = 0;
                 dashesLeft = 0;
+                GetComponent<SpriteRenderer>().color = Color.red;
+                dead = true;
+                GameObject pF = Instantiate(partEff);
+                pF.transform.position = transform.position;
+
             }
         }
     }
@@ -153,6 +159,7 @@ public class bambooPlayerScript : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
             jumpsLeft = 0;
             dashesLeft = 0;
+            GetComponent<SpriteRenderer>().color = Color.red;
         }
         
         if (root.GetComponent<CollExpScript>().grounded)
@@ -308,7 +315,7 @@ public class bambooPlayerScript : MonoBehaviour
                 flingDirect = new Vector2(0f, 0f);
                 //GetComponent<SpriteRenderer>().color = Color.red;
             }
-            if (controller1.rightShoulder.isPressed)
+            if (controller1.rightShoulder.isPressed && poleGrabbed)
             {
                 float controllerXVal = controller1.leftStick.ReadValue().x;
                 float controllerYVal = controller1.leftStick.ReadValue().y;
@@ -333,7 +340,7 @@ public class bambooPlayerScript : MonoBehaviour
                 }
 
             }
-            if (controller1.rightShoulder.wasReleasedThisFrame)
+            if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
             {
                 float angle = Vector2.Angle(pole.transform.up, flingDirect);
                 maxArialSpeed = 0f;

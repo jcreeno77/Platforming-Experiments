@@ -7,16 +7,18 @@ public class CollExpScript : MonoBehaviour
 {
     [SerializeField] GameObject pole;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject partEff;
     Gamepad controller1;
     public bool grounded = false;
     public bool playerHit = false;
-    ParticleSystem partSys;
+    public bool playerHitConfirmed = false;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         controller1 = player.GetComponent<bambooPlayerScript>().controller1;
-        partSys = GetComponent<ParticleSystem>();
-        partSys.enableEmission = false;
+        
     }
 
     // Update is called once per frame
@@ -37,19 +39,18 @@ public class CollExpScript : MonoBehaviour
             //Debug.Log("Basically Here");
             if (!grounded)
             {
-                //Debug.Log("Here");
-                pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                if(!Physics2D.IsTouchingLayers(player.GetComponent<CircleCollider2D>(), 1 << 6))
+                pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                if (!Physics2D.IsTouchingLayers(player.GetComponent<CircleCollider2D>(), 1 << 6))
                 {
                     grounded = true;
                 }
                 
-                if (controller1.rightShoulder.isPressed)
-                {
-                    player.GetComponent<bambooPlayerScript>().poleGrabbed = true;
-                }
+                //if (controller1.rightShoulder.isPressed)
+                //{
+                //    player.GetComponent<bambooPlayerScript>().poleGrabbed = true;
+                //}
             }
         }
         else
@@ -59,13 +60,18 @@ public class CollExpScript : MonoBehaviour
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 8))
         {
             playerHit = true;
-            var emission = partSys.emission;
-            emission.enabled = true;
-            partSys.Play();
+            
         }
         else
         {
             playerHit = false;
+        }
+
+        if (playerHitConfirmed)
+        {
+            GameObject spawn = Instantiate(partEff);
+            spawn.transform.position = transform.position;
+            playerHitConfirmed = false;
         }
     }
 
