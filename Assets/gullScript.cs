@@ -25,7 +25,8 @@ public class gullScript : MonoBehaviour
     {
         sprRend = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        startPos = transform.position;
+        startPos = transform.localPosition;
+        
         animator = GetComponent<Animator>();
         speed = 450f;
         parentObject = transform.parent.gameObject;
@@ -37,6 +38,7 @@ public class gullScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log(startPos);
         if (!animator.enabled)
         {
             if (Time.time >= startAnim)
@@ -113,7 +115,21 @@ public class gullScript : MonoBehaviour
                 break;
 
             case "returnHome":
-
+                if (transform.parent.GetComponent<Rigidbody2D>().velocity.x > 0)
+                {
+                    sprRend.flipX = false;
+                }
+                else
+                {
+                    sprRend.flipX = true;
+                }
+                Vector2 returnVector = new Vector2(transform.localPosition.x,transform.localPosition.y) - startPos;
+                returnVector = -returnVector.normalized;
+                transform.localPosition += new Vector3(returnVector.x,returnVector.y,0) * 10f * Time.deltaTime;
+                if(Vector2.Distance(transform.localPosition,startPos) < 2f)
+                {
+                    state = "base";
+                }
                 break;
 
         }
@@ -138,7 +154,8 @@ public class gullScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            state = "base";
+            state = "returnHome";
+            transform.parent = parentObject.transform;
             animator.SetBool("PlayerWithin10", false);
             attackTarget = null;
         }
