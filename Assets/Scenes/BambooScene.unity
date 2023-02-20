@@ -28295,6 +28295,7 @@ GameObject:
   - component: {fileID: 1361070913}
   - component: {fileID: 1361070914}
   - component: {fileID: 1361070915}
+  - component: {fileID: 1361070916}
   m_Layer: 8
   m_Name: bamboo
   m_TagString: Player
@@ -28343,7 +28344,7 @@ SpriteRenderer:
   m_SortingLayerID: -1882861139
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26a52b5823c744db6afe9f555123146c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80af3405137ce49ab9335bc1ffde5b7e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -28477,6 +28478,26 @@ MonoBehaviour:
   gravity: 20
   root: {fileID: 1987129246}
   player: {fileID: 171279848}
+--- !u!95 &1361070916
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361070908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 358a8de9eed4e4025ae12583903ee10a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1362139092
 GameObject:
   m_ObjectHideFlags: 0
@@ -36390,7 +36411,7 @@ Camera:
   far clip plane: 2000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 6.4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -36414,7 +36435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775850337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -169.04, y: 9.1, z: -39}
+  m_LocalPosition: {x: -163.08, y: 0.54, z: -39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
