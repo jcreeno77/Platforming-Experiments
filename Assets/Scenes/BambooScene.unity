@@ -4176,12 +4176,12 @@ SpriteRenderer:
   m_Size: {x: 2.18, y: 3.95}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &171279853
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4198,7 +4198,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!58 &171279854
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9205,7 +9205,7 @@ CircleCollider2D:
   m_Radius: 0.9156078
 --- !u!95 &414312601
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9222,7 +9222,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &414312602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23339,10 +23339,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pole: {fileID: 1617744373}
   player: {fileID: 414312598}
+  partEff: {fileID: 4177636218917459920, guid: 0eb81d7ab4a58d74f88f8d7462f10eb7, type: 3}
   grounded: 0
   playerHit: 0
   playerHitConfirmed: 0
-  partEff: {fileID: 4177636218917459920, guid: 0eb81d7ab4a58d74f88f8d7462f10eb7, type: 3}
 --- !u!61 &1156708072
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24998,7 +24998,7 @@ CircleCollider2D:
   m_Radius: 0.33644605
 --- !u!95 &1226284855
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -25015,7 +25015,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &1226284857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38984,6 +38984,7 @@ GameObject:
   - component: {fileID: 1908930755}
   - component: {fileID: 1908930754}
   - component: {fileID: 1908930758}
+  - component: {fileID: 1908930759}
   m_Layer: 0
   m_Name: SeaGull
   m_TagString: Untagged
@@ -39008,7 +39009,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
+    oldSize: {x: 19.2, y: 19.2}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -39070,7 +39071,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd6ee5985d6e8434e9f55c717ff6e936, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -39117,6 +39118,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &1908930759
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908930753}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df6cab469d66f4af783818bc441e5260, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1921875943
 GameObject:
   m_ObjectHideFlags: 0
@@ -40115,10 +40136,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pole: {fileID: 1361070908}
   player: {fileID: 171279848}
+  partEff: {fileID: 4177636218917459920, guid: 0eb81d7ab4a58d74f88f8d7462f10eb7, type: 3}
   grounded: 0
   playerHit: 0
   playerHitConfirmed: 0
-  partEff: {fileID: 4177636218917459920, guid: 0eb81d7ab4a58d74f88f8d7462f10eb7, type: 3}
 --- !u!50 &1987129250
 Rigidbody2D:
   serializedVersion: 4
