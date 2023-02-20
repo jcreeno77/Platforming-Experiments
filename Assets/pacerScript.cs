@@ -7,16 +7,22 @@ public class pacerScript : MonoBehaviour
     int direction;
     float timer = 1f;
     float timerSet = 1f;
+    Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         direction = -1;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(200f * direction * Time.deltaTime, 0);
+    }
     void Update()
     {
-        transform.position = new Vector2(transform.position.x + 10f * direction * Time.deltaTime, transform.position.y);
+        
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
