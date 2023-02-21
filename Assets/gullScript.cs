@@ -61,13 +61,13 @@ public class gullScript : MonoBehaviour
 
             case "dive":
                 begingFloatTimer -= Time.deltaTime;
-                Vector2 pursuitVector = transform.position - attackTarget.transform.position;
+                Vector2 pursuitVector = transform.position - attackTarget.transform.Find("bambooPlayer").position;
                 if (begingFloatTimer < 0)
                 {
                     pursuitVector = -pursuitVector.normalized;
                     rb.velocity = pursuitVector * speed * Time.deltaTime;
                 }
-                if (Vector2.Distance(transform.position, attackTarget.transform.position) < 4f)
+                if (Vector2.Distance(transform.position, attackTarget.transform.Find("bambooPlayer").position) < 4f)
                 {
                     state = "attack";
                     animator.SetBool("PlayerWithin4", true);
@@ -80,7 +80,7 @@ public class gullScript : MonoBehaviour
 
             case "attack":
                 rb.velocity = new Vector2(0f, 0f);
-                if (Vector2.Distance(transform.position, attackTarget.transform.position) > 6f)
+                if (Vector2.Distance(transform.position, attackTarget.transform.Find("bambooPlayer").position) > 6f)
                 {
                     state = "dive";
                     animator.SetBool("PlayerWithin4", false);
@@ -93,7 +93,7 @@ public class gullScript : MonoBehaviour
                 {
                     beginAttackTimer = 0f;
                     attackIn = !attackIn;
-                    chargePoint = attackTarget.transform.position + new Vector3(Random.Range(-3, 3), 3f + Random.Range(1.5f, 2f),0);
+                    chargePoint = attackTarget.transform.Find("bambooPlayer").position + new Vector3(Random.Range(-3, 3), Random.Range(1.5f, 2f),0);
                 }
 
                 if (attackIn)
@@ -101,10 +101,9 @@ public class gullScript : MonoBehaviour
                     betweenTimer += Time.deltaTime;
                     if (betweenTimer >= .1f)
                     {
-                        transform.position = attackTarget.transform.position + new Vector3(Random.Range(-1, 1), 3f + Random.Range(-1, 1), 0);
+                        transform.position = attackTarget.transform.Find("bambooPlayer").position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
                         betweenTimer = 0f;
                     }
-                   
                 }
                 else
                 {

@@ -326,6 +326,15 @@ public class bambooPlayerScript : MonoBehaviour
 
                 //pole anim
                 float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.2f * 4f;
+
+                if((int)select > 0)
+                {
+                    GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                }
                 //animator.SetInteger("selector", (int)select);
 
                 //Debug.Log((int)select);
@@ -342,6 +351,7 @@ public class bambooPlayerScript : MonoBehaviour
             }
             if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
             {
+                GetComponent<SpriteRenderer>().enabled = true;
                 float angle = Vector2.Angle(pole.transform.up, flingDirect);
                 maxArialSpeed = 0f;
                 poleGrabbed = false;
