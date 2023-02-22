@@ -13,15 +13,17 @@ public class bambooPlayerScript : MonoBehaviour
     float maxArialSpeed = 0f;
     int jumpsLeft = 1;
     int dashesLeft = 1;
-    public bool offPole;
-    public bool dead;
-    
+    [System.NonSerialized] public bool offPole;
+    [System.NonSerialized] public bool dead;
+
+    [SerializeField] int airDashes;
     [SerializeField] float dashSpeed;
     [SerializeField] float flingForce;
+    [SerializeField] float flingPullSpeed = 15f;
     Vector2 grabLocation;
     Vector2 globalGrabLocation;
     Vector2 flingDirect;
-    public bool poleGrabbed;
+    [System.NonSerialized] public bool poleGrabbed;
     [SerializeField] GameObject root;
     [SerializeField] GameObject pole;
     [SerializeField] GameObject controllerRef;
@@ -82,12 +84,15 @@ public class bambooPlayerScript : MonoBehaviour
     }
     void Start()
     {
+        airDashes = 1;
         flingForce = 50f;
         dashSpeed = 50f;
         poleGrabbed = false;
         baseSpeed = 7f;
         speed = baseSpeed;
-        
+        flingPullSpeed = 15f;
+
+
         poleHeight = 5.38f;
         moveWidth = 1f;
         flingDirect = new Vector2(0f, 0f);
@@ -319,7 +324,7 @@ public class bambooPlayerScript : MonoBehaviour
             {
                 float controllerXVal = controller1.leftStick.ReadValue().x;
                 float controllerYVal = controller1.leftStick.ReadValue().y;
-                flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * 15f), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * 15f));
+                flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * flingPullSpeed), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * flingPullSpeed));
 
                 //GetAngle
                 //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
@@ -392,7 +397,7 @@ public class bambooPlayerScript : MonoBehaviour
                 //setBool in Animator BEGIN Release
                 pole.GetComponent<SpriteRenderer>().sprite = basePole;
                 jumpsLeft = 1;
-                dashesLeft = 2;
+                dashesLeft = airDashes;
                 flingDirect = new Vector2(0f, 0f);
             }
         }

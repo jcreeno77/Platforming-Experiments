@@ -12,6 +12,7 @@ public class bambooPoleScript : MonoBehaviour
     Quaternion startRotation;
     Rigidbody2D body;
     Gamepad controller1;
+    
     // Start is called before the first frame update
     private void Reset()
     {
@@ -21,6 +22,7 @@ public class bambooPoleScript : MonoBehaviour
         startRotation = transform.rotation;
 
         controller1 = player.GetComponent<bambooPlayerScript>().controller1;
+        
     }
 
     void Start()
@@ -31,6 +33,7 @@ public class bambooPoleScript : MonoBehaviour
         startRotation = transform.rotation;
 
         controller1 = player.GetComponent<bambooPlayerScript>().controller1;
+        
     }
 
     // Update is called once per frame
@@ -52,6 +55,11 @@ public class bambooPoleScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) || controller1.startButton.wasPressedThisFrame)
         {
+            if (body == null)
+            {
+                body = gameObject.AddComponent<Rigidbody2D>();
+            }
+            
             transform.position = startPos;
             transform.rotation = startRotation;
             body.bodyType = RigidbodyType2D.Kinematic;
@@ -79,6 +87,7 @@ public class bambooPoleScript : MonoBehaviour
             {
                 collision.transform.Find("bambooPlayer").gameObject.GetComponent<bambooPlayerScript>().dead = true;
                 root.GetComponent<CollExpScript>().playerHitConfirmed = true;
+                Destroy(collision.transform.gameObject.GetComponent<Rigidbody2D>());
             }
             
         }

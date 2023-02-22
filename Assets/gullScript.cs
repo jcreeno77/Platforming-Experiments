@@ -38,7 +38,6 @@ public class gullScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(startPos);
         if (!animator.enabled)
         {
             if (Time.time >= startAnim)
