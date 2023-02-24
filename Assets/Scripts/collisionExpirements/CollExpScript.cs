@@ -12,6 +12,7 @@ public class CollExpScript : MonoBehaviour
     public bool grounded = false;
     public bool playerHit = false;
     public bool playerHitConfirmed = false;
+    [SerializeField] BoxCollider2D upperBound;
     
     
     // Start is called before the first frame update
@@ -42,6 +43,10 @@ public class CollExpScript : MonoBehaviour
                 pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
                 pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                 pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                pole.GetComponent<Animator>().SetBool("grounded", true);
+                pole.GetComponent<Animator>().SetBool("ReleaseFling", false);
+                pole.GetComponent<Animator>().SetBool("BeginFling", false);
+                pole.GetComponent<Animator>().SetBool("lungeRight", false);
                 if (!Physics2D.IsTouchingLayers(player.GetComponent<CircleCollider2D>(), 1 << 6))
                 {
                     grounded = true;
@@ -56,7 +61,16 @@ public class CollExpScript : MonoBehaviour
         else
         {
             grounded = false;
+            pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
+        if (Physics2D.IsTouchingLayers(upperBound, 1 << 6)){
+            grounded = false;
+            pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+
+
+
+        //player attack stuff
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 8))
         {
             playerHit = true;
@@ -74,5 +88,7 @@ public class CollExpScript : MonoBehaviour
             playerHitConfirmed = false;
         }
     }
+
+    
 
 }

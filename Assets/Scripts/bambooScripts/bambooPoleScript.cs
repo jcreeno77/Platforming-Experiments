@@ -49,7 +49,7 @@ public class bambooPoleScript : MonoBehaviour
             body.AddForce(new Vector2(0f, -gravity*Time.deltaTime));
         }
 
-        //reduce top speed
+
         
         
 

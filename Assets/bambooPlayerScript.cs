@@ -41,6 +41,7 @@ public class bambooPlayerScript : MonoBehaviour
 
     //Animation
     public Animator animator;
+    Animator poleAnimator;
     public float flingDistance;
     public Gamepad controller1;
 
@@ -125,6 +126,7 @@ public class bambooPlayerScript : MonoBehaviour
         {
             Destroy(transform.parent.gameObject);
         }
+        poleAnimator = transform.parent.gameObject.GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
@@ -171,7 +173,255 @@ public class bambooPlayerScript : MonoBehaviour
         {
             //Handle up and down movement
             float distance = Vector2.Distance(transform.position, root.transform.position);
-            /*if (Input.GetKey(KeyCode.UpArrow))
+
+
+            //CONTROLLER VERSION
+            //handle left right
+            if (!poleGrabbed)
+            {
+                if (controller1.leftStick.left.isPressed)
+                {
+                    poleAnimator.SetBool("Left_of_Pole", true);
+                    poleAnimator.SetBool("Right_of_Pole", false);
+                }
+                else if (controller1.leftStick.right.isPressed)
+                {
+                    poleAnimator.SetBool("Left_of_Pole", false);
+                    poleAnimator.SetBool("Right_of_Pole", true);
+                }
+            }
+
+                //handle up down
+                /*
+                if (!poleGrabbed)
+                {
+                    //Handle up and down mechanics
+                    if (controller1.leftStick.up.isPressed)
+                    {
+                        if (distance < poleHeight)
+                        {
+                            transform.position += transform.up * Time.deltaTime * speed;
+                        }
+
+                    }
+                    else if (controller1.leftStick.down.isPressed)
+                    {
+                        if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
+                        {
+                            transform.position -= transform.up * Time.deltaTime * speed;
+                        }
+                    }
+
+                }
+                */
+                //Handle Grab Mechanics
+                float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
+            //Debug.Log(localFlingDistance);
+            //CONTROLLER VERSION
+            if (controller1.rightShoulder.wasPressedThisFrame)
+            {
+                poleGrabbed = true;
+                grabLocation = transform.localPosition;
+                flingDirect = new Vector2(0f, 0f);
+                //GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            if (controller1.rightShoulder.isPressed && poleGrabbed)
+            {
+                float controllerXVal = controller1.leftStick.ReadValue().x;
+                float controllerYVal = controller1.leftStick.ReadValue().y;
+                flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * flingPullSpeed), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * flingPullSpeed));
+
+                //if (Mathf.Abs(controller1.leftStick.ReadValue().x) > )
+
+                //GetAngle
+                //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
+
+                //pole anim
+                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1f * 4f;
+
+                if((int)select > 0)
+                {
+                    poleAnimator.SetBool("BeginFling", true);
+                    //GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    poleAnimator.SetBool("BeginFling", false);
+                    //GetComponent<SpriteRenderer>().enabled = true;
+                }
+
+                //Debug.Log((int)select);
+                float flingAngle = Vector2.Angle(transform.right, -flingDirect);
+                if (flingAngle > 90)
+                {
+                    poleAnimator.SetBool("FlingAngleLeft", true);
+                    poleAnimator.SetBool("FlingAngleRight", false);
+                    //pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
+                }
+                else
+                {
+                    poleAnimator.SetBool("FlingAngleLeft", false);
+                    poleAnimator.SetBool("FlingAngleRight", true);
+                    //pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
+                }
+                
+            }
+            if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
+            {
+                poleAnimator.SetBool("FlingAngleLeft", false);
+                poleAnimator.SetBool("FlingAngleRight", false);
+                pole.GetComponent<Animator>().SetBool("BeginFling", false);
+                poleAnimator.SetBool("ReleaseFling", true);
+                poleAnimator.SetBool("grounded", false);
+                
+
+                GetComponent<SpriteRenderer>().enabled = true;
+                float angle = Vector2.Angle(pole.transform.up, flingDirect);
+                maxArialSpeed = 0f;
+                poleGrabbed = false;
+                //GetComponent<SpriteRenderer>().color = Color.white;
+                speed = baseSpeed;
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(flingDirect.x * flingForce, flingDirect.y * flingForce * 1.25f);
+
+                //Handles angular Velocity
+                float flingAngle = Vector2.Angle(transform.right, new Vector2(-flingDirect.x, -flingDirect.y));
+                float amplifier;
+                //Sets amplifier
+
+                if (flingAngle > 90)
+                {
+                    amplifier = -flingAngle/180;
+                }
+                else
+                {
+                    amplifier = (180-flingAngle)/180;
+                }
+                //Sets Anglular Velocity
+                float angVel = (flingDirect.magnitude * 700f * amplifier);
+                //Adjusts min and max clamp
+                if (angVel >= 0)
+                {
+                    angVel = Mathf.Clamp(angVel, 300, 700);
+                }
+                else
+                {
+                    angVel = Mathf.Clamp(angVel, -700, -300);
+                }
+                //Activates da spin
+                pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
+
+                pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                
+                //reset to straight pole: PASS TO ANIMATOR
+                // timers stagger reflex animation -> basePole
+                //setBool in Animator BEGIN Release
+                pole.GetComponent<SpriteRenderer>().sprite = basePole;
+                jumpsLeft = 1;
+                dashesLeft = airDashes;
+                flingDirect = new Vector2(0f, 0f);
+            }
+        }
+        else
+        {
+            //arial Movement Mechanics
+            Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
+            //arial jump
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (jumpsLeft > 0)
+                {
+                    jumpsLeft -= 1;
+                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
+                }
+            }
+            maxArialSpeed = Mathf.Max(maxArialSpeed, Mathf.Abs(currPoleVel.x));
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x-(10f*Time.deltaTime),-maxArialSpeed,maxArialSpeed),currPoleVel.y);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
+            }          
+   
+            //AERIAL DASH MECHANICS
+            float horizontal = 0;
+            float vertical = 0;
+            
+
+            //Controller Version
+            //aerial Jump
+            if (controller1.buttonSouth.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
+            {
+                if (jumpsLeft > 0)
+                {
+                    jumpsLeft -= 1;
+                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
+                }
+            }
+
+            //aerial Dash
+            if (controller1.rightShoulder.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
+            {
+                if (controller1.leftStick.up.isPressed)
+                {
+                    vertical += 1;
+                }
+                if (controller1.leftStick.down.isPressed)
+                {
+                    vertical -= 1;
+                }
+                if (controller1.leftStick.right.isPressed)
+                {
+                    horizontal += 1;
+                }
+
+                if (controller1.leftStick.left.isPressed)
+                {
+                    horizontal -= 1;
+                }
+                
+                if (horizontal == 0 && vertical == 0)
+                {
+                    vertical = -1;
+                }
+                if (dashesLeft > 0 /*&& vertical <= 0*/)
+                {
+                    poleAnimator.SetBool("lungeRight", true);
+                    dashesLeft -= 1;
+                    Vector2 dashDirect = new Vector2(horizontal, vertical).normalized;
+                    pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
+                    pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+                    float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
+                    if (horizontal < 0)
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                    }
+                    else
+                    {
+                        pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
+                    }
+                }
+            }
+
+            //aerial rotation
+            if (controller1.rightStick.right.isPressed)
+            {
+                pole.GetComponent<Rigidbody2D>().angularVelocity -= 500 * Time.deltaTime;
+            }
+            else if (controller1.rightStick.left.isPressed)
+            {
+                pole.GetComponent<Rigidbody2D>().angularVelocity += 500 * Time.deltaTime;
+            }
+            pole.GetComponent<Rigidbody2D>().angularVelocity = Mathf.Clamp(pole.GetComponent<Rigidbody2D>().angularVelocity, -700f, 700f);
+
+        }
+    }
+
+}
+
+//Extra stuff for keyboard
+/*if (Input.GetKey(KeyCode.UpArrow))
             {
                 if (distance < poleHeight)
                 {
@@ -271,165 +521,24 @@ public class bambooPlayerScript : MonoBehaviour
 
 
 
-            //Handle side to side mechanics
-            /*if (controller1.leftStick.right.isPressed)
-            {
-                if (transform.localPosition.x < moveWidth)
-                {
-                    transform.position += transform.right * Time.deltaTime * speed / 2;
-                }
-            }
-            else if (controller1.leftStick.left.isPressed)
-            {
-                if (transform.localPosition.x > -moveWidth)
-                {
-                    transform.position -= transform.right * Time.deltaTime * speed / 2;
-                }
-            }*/
+//Handle side to side mechanics
+/*if (controller1.leftStick.right.isPressed)
+{
+    if (transform.localPosition.x < moveWidth)
+    {
+        transform.position += transform.right * Time.deltaTime * speed / 2;
+    }
+}
+else if (controller1.leftStick.left.isPressed)
+{
+    if (transform.localPosition.x > -moveWidth)
+    {
+        transform.position -= transform.right * Time.deltaTime * speed / 2;
+    }
+}*/
 
-            //CONTROLLER VERSION
-            if (!poleGrabbed)
-            {
-                //Handle up and down mechanics
-                if (controller1.leftStick.up.isPressed)
-                {
-                    if (distance < poleHeight)
-                    {
-                        transform.position += transform.up * Time.deltaTime * speed;
-                    }
-
-                }
-                else if (controller1.leftStick.down.isPressed)
-                {
-                    if (transform.localPosition.y - root.transform.localPosition.y > 0.3)
-                    {
-                        transform.position -= transform.up * Time.deltaTime * speed;
-                    }
-                }
-                
-            }
-
-            //Handle Grab Mechanics
-            float localFlingDistance = (Mathf.Pow((grabLocation.x - transform.localPosition.x) * pole.transform.localScale.x, 2) + Mathf.Pow((grabLocation.y - transform.localPosition.y) * pole.transform.localScale.y, 2));
-            //Debug.Log(localFlingDistance);
-            //CONTROLLER VERSION
-            if (controller1.rightShoulder.wasPressedThisFrame)
-            {
-                poleGrabbed = true;
-                grabLocation = transform.localPosition;
-                flingDirect = new Vector2(0f, 0f);
-                //GetComponent<SpriteRenderer>().color = Color.red;
-            }
-            if (controller1.rightShoulder.isPressed && poleGrabbed)
-            {
-                float controllerXVal = controller1.leftStick.ReadValue().x;
-                float controllerYVal = controller1.leftStick.ReadValue().y;
-                flingDirect = new Vector2(Mathf.Lerp(flingDirect.x, -controllerXVal, Time.deltaTime * flingPullSpeed), Mathf.Lerp(flingDirect.y, -controllerYVal, Time.deltaTime * flingPullSpeed));
-
-                //GetAngle
-                //Debug.Log(Vector2.Angle(pole.transform.up, flingDirect));
-
-                //pole anim
-                float select = Vector2.Distance(new Vector2(0, 0), flingDirect) / 1.2f * 4f;
-
-                if((int)select > 0)
-                {
-                    GetComponent<SpriteRenderer>().enabled = false;
-                }
-                else
-                {
-                    GetComponent<SpriteRenderer>().enabled = true;
-                }
-                //animator.SetInteger("selector", (int)select);
-
-                //Debug.Log((int)select);
-                float flingAngle = Vector2.Angle(transform.right, -flingDirect);
-                if (flingAngle > 90)
-                {
-                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayLeft[(int)select];
-                }
-                else
-                {
-                    pole.GetComponent<SpriteRenderer>().sprite = sprArrayRight[(int)select];
-                }
-
-            }
-            if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
-            {
-                GetComponent<SpriteRenderer>().enabled = true;
-                float angle = Vector2.Angle(pole.transform.up, flingDirect);
-                maxArialSpeed = 0f;
-                poleGrabbed = false;
-                //GetComponent<SpriteRenderer>().color = Color.white;
-                speed = baseSpeed;
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(flingDirect.x * flingForce, flingDirect.y * flingForce * 1.25f);
-
-                //Handles angular Velocity
-                float flingAngle = Vector2.Angle(transform.right, new Vector2(-flingDirect.x, -flingDirect.y));
-                float amplifier;
-                //Sets amplifier
-                if (flingAngle > 90)
-                {
-                    amplifier = -flingAngle/180;
-                }
-                else
-                {
-                    amplifier = (180-flingAngle)/180;
-                }
-                //Sets Anglular Velocity
-                float angVel = (flingDirect.magnitude * 700f * amplifier);
-                //Adjusts min and max clamp
-                if (angVel >= 0)
-                {
-                    angVel = Mathf.Clamp(angVel, 300, 700);
-                }
-                else
-                {
-                    angVel = Mathf.Clamp(angVel, -700, -300);
-                }
-                //Activates da spin
-                pole.GetComponent<Rigidbody2D>().angularVelocity = angVel;
-
-                pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                
-                //reset to straight pole: PASS TO ANIMATOR
-                // timers stagger reflex animation -> basePole
-                //setBool in Animator BEGIN Release
-                pole.GetComponent<SpriteRenderer>().sprite = basePole;
-                jumpsLeft = 1;
-                dashesLeft = airDashes;
-                flingDirect = new Vector2(0f, 0f);
-            }
-        }
-        else
-        {
-
-            
-            //arial Movement Mechanics
-            Vector2 currPoleVel = pole.GetComponent<Rigidbody2D>().velocity;
-            //arial jump
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (jumpsLeft > 0)
-                {
-                    jumpsLeft -= 1;
-                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
-                }
-            }
-            maxArialSpeed = Mathf.Max(maxArialSpeed, Mathf.Abs(currPoleVel.x));
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x-(10f*Time.deltaTime),-maxArialSpeed,maxArialSpeed),currPoleVel.y);
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                pole.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Clamp(currPoleVel.x + (12f * Time.deltaTime),-maxArialSpeed,maxArialSpeed), currPoleVel.y);
-            }          
-   
-            //AERIAL DASH MECHANICS
-            float horizontal = 0;
-            float vertical = 0;
-            /*
+//controller stuff again
+/*
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 if (Input.GetKey(KeyCode.UpArrow))
@@ -467,73 +576,3 @@ public class bambooPlayerScript : MonoBehaviour
                 }
                 
             }*/
-
-            //Controller Version
-            //aerial Jump
-            if (controller1.buttonSouth.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
-            {
-                if (jumpsLeft > 0)
-                {
-                    jumpsLeft -= 1;
-                    pole.GetComponent<Rigidbody2D>().velocity = new Vector2(currPoleVel.x, 35f);
-                }
-            }
-
-            //aerial Dash
-            if (controller1.rightShoulder.wasPressedThisFrame && !GetComponent<fightMovement>().inAttack)
-            {
-                if (controller1.leftStick.up.isPressed)
-                {
-                    vertical += 1;
-                }
-                if (controller1.leftStick.down.isPressed)
-                {
-                    vertical -= 1;
-                }
-                if (controller1.leftStick.right.isPressed)
-                {
-                    horizontal += 1;
-                }
-
-                if (controller1.leftStick.left.isPressed)
-                {
-                    horizontal -= 1;
-                }
-                
-                if (horizontal == 0 && vertical == 0)
-                {
-                    vertical = -1;
-                }
-                if (dashesLeft > 0 /*&& vertical <= 0*/)
-                {
-                    dashesLeft -= 1;
-                    Vector2 dashDirect = new Vector2(horizontal, vertical).normalized;
-                    pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
-                    pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-                    float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
-                    if (horizontal < 0)
-                    {
-                        pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
-                    }
-                    else
-                    {
-                        pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
-                    }
-                }
-            }
-
-            //aerial rotation
-            if (controller1.rightStick.right.isPressed)
-            {
-                pole.GetComponent<Rigidbody2D>().angularVelocity -= 500 * Time.deltaTime;
-            }
-            else if (controller1.rightStick.left.isPressed)
-            {
-                pole.GetComponent<Rigidbody2D>().angularVelocity += 500 * Time.deltaTime;
-            }
-            pole.GetComponent<Rigidbody2D>().angularVelocity = Mathf.Clamp(pole.GetComponent<Rigidbody2D>().angularVelocity, -700f, 700f);
-
-        }
-    }
-
-}
