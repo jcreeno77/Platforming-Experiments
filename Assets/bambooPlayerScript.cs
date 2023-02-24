@@ -157,7 +157,6 @@ public class bambooPlayerScript : MonoBehaviour
     {
         if (dead)
         {
-            dead = false;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
             root.SetActive(false);
@@ -270,7 +269,7 @@ public class bambooPlayerScript : MonoBehaviour
             {
                 poleAnimator.SetBool("FlingAngleLeft", false);
                 poleAnimator.SetBool("FlingAngleRight", false);
-                pole.GetComponent<Animator>().SetBool("BeginFling", false);
+                poleAnimator.SetBool("BeginFling", false);
                 poleAnimator.SetBool("ReleaseFling", true);
                 poleAnimator.SetBool("grounded", false);
                 

@@ -11,9 +11,9 @@ public class fightMovement : MonoBehaviour
 
     Gamepad controller1;
     float dashSpeed = 40f;
-    float dashSpeedMax = 40f;
+    float dashSpeedMax = 80;
     float counter = .5f;
-    float counterMax = .5f;
+    float counterMax = .7f;
     public bool inAttack = false;
     Vector2 dashDirect;
     // Start is called before the first frame update
@@ -35,19 +35,17 @@ public class fightMovement : MonoBehaviour
             {
                 controller1 = GetComponent<bambooPlayerScript>().controller1;
             }
-            if (counter > 0 && !root.GetComponent<CollExpScript>().grounded)
+            counter -= Time.deltaTime;
+            if (dashSpeed > 0 && inAttack)
             {
-                counter -= Time.deltaTime;
-                dashSpeed -= Time.deltaTime * dashSpeedMax * 2f;
-                inAttack = true;
+                dashSpeed -= Time.deltaTime * dashSpeedMax * 10f;
                 pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
             
             }
-            else
+            if (counter <= 0 || root.GetComponent<CollExpScript>().grounded)
             {
-                counter = 0;
                 inAttack = false;
-                dashSpeed = dashSpeedMax;
+                counter = 0;
             }
         
             float vertical = 0;
@@ -82,22 +80,23 @@ public class fightMovement : MonoBehaviour
 
                     if (vertical <= 0)
                     {
-                        counter = counterMax; counter = counterMax;
+                        dashSpeed = dashSpeedMax;
+                        inAttack = true;
+                        counter = counterMax;
                         dashDirect = new Vector2(horizontal, vertical).normalized;
                         pole.GetComponent<Rigidbody2D>().velocity = dashDirect * dashSpeed;
                         pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
                         float angle = Vector2.Angle(new Vector2(horizontal, vertical), Vector3.up);
                         if (horizontal < 0)
                         {
-                            pole.transform.rotation = Quaternion.Euler(0f, 0f, angle + 180);
+                            pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 + angle);
                         }
                         else
                         {
                             pole.transform.rotation = Quaternion.Euler(0f, 0f, 180 - angle);
                         }
                     }
-                
-                
+                    
                 }
             }
         }
