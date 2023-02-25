@@ -11,9 +11,9 @@ public class fightMovement : MonoBehaviour
 
     Gamepad controller1;
     float dashSpeed = 40f;
-    float dashSpeedMax = 80;
+    float dashSpeedMax = 80f;
     float counter = .5f;
-    float counterMax = .7f;
+    float counterMax = .5f;
     public bool inAttack = false;
     Vector2 dashDirect;
     // Start is called before the first frame update

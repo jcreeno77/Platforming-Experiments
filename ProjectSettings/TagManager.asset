@@ -44,6 +44,9 @@ TagManager:
   - name: clouds
     uniqueID: 2172475
     locked: 0
+  - name: Player
+    uniqueID: 611039905
+    locked: 0
   - name: setPeices
     uniqueID: 2412106157
     locked: 0
