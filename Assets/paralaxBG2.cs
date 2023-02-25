@@ -27,10 +27,5 @@ public class paralaxBG2 : MonoBehaviour
         //set vals for next frame
         camPosY = cam.transform.position.y;
         camSize = cam.GetComponent<Camera>().orthographicSize;
-
-        //Vector2 posDiff = new Vector2(cam.transform.position.x, cam.transform.position.y) - camPos;
-        //transform.position = (posDiff) + new Vector2(transform.position.x, transform.position.y);
-        //transform.position = new Vector2(posDiff.x + transform.position.x, (posDiff.y / 1.3f) + transform.position.y);
-        //camPos = cam.transform.position;
     }
 }

@@ -8,6 +8,7 @@ public class pacerScript : MonoBehaviour
     float timer = 1f;
     float timerSet = 1f;
     Rigidbody2D rb;
+    [SerializeField] float speed = 200f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class pacerScript : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(200f * direction * Time.deltaTime, 0);
+        rb.velocity = new Vector2(speed * direction * Time.deltaTime, 0);
     }
     void Update()
     {
