@@ -63,7 +63,8 @@ public class CollExpScript : MonoBehaviour
             grounded = false;
             pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
-        if (Physics2D.IsTouchingLayers(upperBound, 1 << 6)){
+        if (Physics2D.IsTouchingLayers(upperBound, 1 << 6))
+        {
             grounded = false;
             pole.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }

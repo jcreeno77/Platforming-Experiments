@@ -71,6 +71,8 @@ public class bambooPoleScript : MonoBehaviour
             Destroy(player.gameObject.GetComponent<Rigidbody2D>());
             player.GetComponent<bambooPlayerScript>().offPole = false;
             player.GetComponent<bambooPlayerScript>().dead = false;
+            player.GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Animator>().enabled = true;
             player.transform.parent = transform;
             player.transform.localPosition = new Vector2(-.58f, 4.94f);
             player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
