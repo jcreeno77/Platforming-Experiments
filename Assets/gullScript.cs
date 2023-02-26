@@ -11,7 +11,6 @@ public class gullScript : MonoBehaviour
     Vector2 startPos;
     Animator animator;
     GameObject attackTarget;
-    [SerializeField] GameObject particleEffect;
     [SerializeField] float speed;
     float startAnim;
 
@@ -103,8 +102,6 @@ public class gullScript : MonoBehaviour
                     {
                         transform.position = attackTarget.transform.Find("bambooPlayer").position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
                         betweenTimer = 0f;
-                        GameObject particleObj = Instantiate(particleEffect);
-                        particleObj.transform.position = transform.position;
                     }
                 }
                 else
