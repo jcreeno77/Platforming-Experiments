@@ -143,7 +143,6 @@ public class bambooPlayerScript : MonoBehaviour
                 GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
                 jumpsLeft = 0;
                 dashesLeft = 0;
-                GetComponent<SpriteRenderer>().color = Color.red;
                 dead = true;
                 GameObject pF = Instantiate(partEff);
                 pF.transform.position = transform.position;
@@ -157,6 +156,7 @@ public class bambooPlayerScript : MonoBehaviour
     {
         if (dead)
         {
+            GetComponent<SpriteRenderer>().enabled = true;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
             root.SetActive(false);
@@ -166,6 +166,8 @@ public class bambooPlayerScript : MonoBehaviour
             jumpsLeft = 0;
             dashesLeft = 0;
             GetComponent<SpriteRenderer>().color = Color.red;
+            pole.GetComponent<SpriteRenderer>().sprite = basePole;
+            pole.GetComponent<Animator>().enabled = false;
         }
         
         if (root.GetComponent<CollExpScript>().grounded)
@@ -273,8 +275,6 @@ public class bambooPlayerScript : MonoBehaviour
                 poleAnimator.SetBool("ReleaseFling", true);
                 poleAnimator.SetBool("grounded", false);
                 
-
-                GetComponent<SpriteRenderer>().enabled = true;
                 float angle = Vector2.Angle(pole.transform.up, flingDirect);
                 maxArialSpeed = 0f;
                 poleGrabbed = false;
@@ -314,7 +314,7 @@ public class bambooPlayerScript : MonoBehaviour
                 //reset to straight pole: PASS TO ANIMATOR
                 // timers stagger reflex animation -> basePole
                 //setBool in Animator BEGIN Release
-                pole.GetComponent<SpriteRenderer>().sprite = basePole;
+                
                 jumpsLeft = 1;
                 dashesLeft = airDashes;
                 flingDirect = new Vector2(0f, 0f);
