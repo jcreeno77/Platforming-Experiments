@@ -4750,6 +4750,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &182187038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4861,6 +4862,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
@@ -26704,6 +26707,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1260997261
 GameObject:
   m_ObjectHideFlags: 0
@@ -26815,6 +26819,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
@@ -27184,6 +27190,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1286627879
 GameObject:
   m_ObjectHideFlags: 0
@@ -27295,6 +27302,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
@@ -30718,6 +30727,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1412570849
 GameObject:
   m_ObjectHideFlags: 0
@@ -30829,6 +30839,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
@@ -43474,6 +43486,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &2075391911
 GameObject:
   m_ObjectHideFlags: 0
@@ -43585,6 +43598,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======

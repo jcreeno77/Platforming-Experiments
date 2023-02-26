@@ -28,7 +28,11 @@ MonoBehaviour:
   vertical: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 339
+=======
+  controlID: 6674
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
   controlID: 6674
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -57,6 +61,7 @@ MonoBehaviour:
     serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: -2560
     y: 73
     width: 658
@@ -64,11 +69,16 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     x: -248
     y: -503
     width: 1045
     height: 416
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -120,10 +130,17 @@ MonoBehaviour:
       y: 21
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       width: 658
       height: 588
     m_Scale: {x: 1, y: 1}
     m_Translation: {x: 329, y: 294}
+=======
+      width: 1045
+      height: 395
+    m_Scale: {x: 1, y: 1}
+    m_Translation: {x: 522.5, y: 197.5}
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
       width: 1045
       height: 395
@@ -144,6 +161,7 @@ MonoBehaviour:
       serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       x: -329
       y: -294
       width: 658
@@ -151,6 +169,15 @@ MonoBehaviour:
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 658, y: 609}
+=======
+      x: -522.5
+      y: -197.5
+      width: 1045
+      height: 395
+    m_MinimalGUI: 1
+  m_defaultScale: 1
+  m_LastWindowPixelSize: {x: 1045, y: 416}
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
       x: -522.5
       y: -197.5
@@ -200,7 +227,11 @@ MonoBehaviour:
   vertical: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 340
+=======
+  controlID: 6675
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
   controlID: 6675
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -232,6 +263,7 @@ MonoBehaviour:
   m_Panes:
   - {fileID: 5}
   - {fileID: 6}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   m_Position:
@@ -308,6 +340,11 @@ MonoBehaviour:
   m_LastSelected: 0
 --- !u!114 &5
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+  m_Selected: 1
+  m_LastSelected: 0
+--- !u!114 &5
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -329,6 +366,7 @@ MonoBehaviour:
     serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: -1901
     y: 73
     width: 1224
@@ -336,11 +374,16 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     x: -248
     y: -997
     width: 1045
     height: 473
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -569,9 +612,15 @@ MonoBehaviour:
   m_Position:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: -160.19656, y: 3.8766742, z: -2.796776}
     speed: 2
     m_Value: {x: -160.19656, y: 3.8766742, z: -2.796776}
+=======
+    m_Target: {x: -179.6981, y: -19.865944, z: 107.71176}
+    speed: 2
+    m_Value: {x: -179.6981, y: -19.865944, z: 107.71176}
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
     m_Target: {x: -179.6981, y: -19.865944, z: 107.71176}
     speed: 2
@@ -634,9 +683,15 @@ MonoBehaviour:
   m_Size:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: 21.721226
     speed: 2
     m_Value: 21.721226
+=======
+    m_Target: 83.59496
+    speed: 2
+    m_Value: 83.59496
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
     m_Target: 83.59496
     speed: 2
@@ -895,6 +950,7 @@ MonoBehaviour:
     serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 0
     y: 630
     width: 1885
@@ -905,6 +961,8 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     x: 1219
     y: 0
     width: 312
@@ -913,6 +971,9 @@ MonoBehaviour:
   m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 11}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -942,6 +1003,7 @@ MonoBehaviour:
     serializedVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: -2560
     y: 703
     width: 1884
@@ -949,11 +1011,16 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     x: 971
     y: -997
     width: 310
     height: 910
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -988,6 +1055,7 @@ MonoBehaviour:
   m_FolderTreeState:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     scrollPos: {x: 0, y: 79}
     m_SelectedIDs: e2700000
     m_LastClickedID: 28898
@@ -995,11 +1063,16 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 5abf0000
     m_LastClickedID: 48986
     m_ExpandedIDs: 00000000e06b0000e26b0000e46b0000e66b00000e6c0000106c000000be000000ca9a3b
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -1032,7 +1105,11 @@ MonoBehaviour:
     m_LastClickedID: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: 00000000e2700000e470000000ca9a3bffffff7f
+=======
+    m_ExpandedIDs: 00000000e06b0000e26b0000e46b0000e66b00000e6c0000106c000000be000000ca9a3b
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
     m_ExpandedIDs: 00000000e06b0000e26b0000e46b0000e66b00000e6c0000106c000000be000000ca9a3b
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -1065,6 +1142,7 @@ MonoBehaviour:
   m_ListAreaState:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
@@ -1072,11 +1150,16 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     m_SelectedInstanceIDs: ce660000
     m_LastClickedInstanceID: 26318
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
@@ -1117,6 +1200,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   m_Name: SceneHierarchyWindow
@@ -1206,6 +1290,8 @@ MonoBehaviour:
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
   m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
@@ -1213,6 +1299,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1531
     y: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     width: 395
@@ -1223,12 +1310,17 @@ MonoBehaviour:
 =======
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
     width: 389
     height: 931
   m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
+=======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
 =======
 >>>>>>> parent of c9afabf (Changed particle effect sprite, added particle effect to seagull attack, adjusted pole details, level layout changes)
