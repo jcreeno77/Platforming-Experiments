@@ -137,7 +137,7 @@ public class bambooPlayerAutoScript : MonoBehaviour
                 flingDirect = new Vector2(0f, 0f);
                 //GetComponent<SpriteRenderer>().color = Color.red;
             }
-            if (controller1.rightShoulder.isPressed)
+            if (controller1.rightShoulder.isPressed && poleGrabbed)
             {
                 Debug.Log("is pressed");
                 float controllerXVal = controller1.leftStick.ReadValue().x;
@@ -163,10 +163,10 @@ public class bambooPlayerAutoScript : MonoBehaviour
                 }
 
             }
-            if (controller1.rightShoulder.wasReleasedThisFrame)
+            if (controller1.rightShoulder.wasReleasedThisFrame && poleGrabbed)
             {
                 pole.GetComponent<bambooPoleAutoScript>().grounded = false;
-                pole.GetComponent<bambooPoleAutoScript>().timer = .3f;
+                pole.GetComponent<bambooPoleAutoScript>().timer = .05f;
                 float angle = Vector2.Angle(pole.transform.up, flingDirect);
                 maxArialSpeed = 0f;
                 poleGrabbed = false;

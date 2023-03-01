@@ -74,7 +74,7 @@ public class bambooPoleScript : MonoBehaviour
             player.GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Animator>().enabled = true;
             player.transform.parent = transform;
-            player.transform.localPosition = new Vector2(-.58f, 4.94f);
+            player.transform.localPosition = new Vector2(0, 0);
             player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             player.GetComponent<SpriteRenderer>().color = Color.white;
         }
