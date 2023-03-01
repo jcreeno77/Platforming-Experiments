@@ -4184,7 +4184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171279848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.653, y: 3.267, z: -1.25}
+  m_LocalPosition: {x: -0.12, y: -0.13, z: -1.25}
   m_LocalScale: {x: 0.8287, y: 0.8287, z: 0.8287}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4311,9 +4311,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.055842437, y: -0.029342502}
+  m_Offset: {x: 0.06914052, y: -0.029342502}
   serializedVersion: 2
-  m_Radius: 0.35947946
+  m_Radius: 0.53229916
 --- !u!114 &171279855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28474,7 +28474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &1293616301
 Rigidbody2D:
   serializedVersion: 4
@@ -38803,8 +38803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14379066f79adb84e9dd901b2a1a9520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 1361070908}
-  player2: {fileID: 1361070908}
+  player1: {fileID: 1293616297}
+  player2: {fileID: 1293616297}
   camSpeed: 0
   camMinSize: 0
 --- !u!114 &1775850343
