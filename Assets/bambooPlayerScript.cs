@@ -9,6 +9,9 @@ public class bambooPlayerScript : MonoBehaviour
     float baseSpeed;
     float poleHeight;
     float moveWidth;
+    float deathCount = 0;
+    int scoreIndex;
+    bool deathAdded;
     //float arialSpeed = 0f;
     float maxArialSpeed = 0f;
     int jumpsLeft = 1;
@@ -28,6 +31,7 @@ public class bambooPlayerScript : MonoBehaviour
     [SerializeField] GameObject pole;
     [SerializeField] GameObject controllerRef;
     [SerializeField] GameObject partEff;
+    [SerializeField] GameObject scoreObj;
     [SerializeField] PhysicMaterial frictionless;
     [SerializeField] Sprite[] sprArrayLeft;
     [SerializeField] Sprite[] sprArrayRight;
@@ -48,6 +52,8 @@ public class bambooPlayerScript : MonoBehaviour
     // Start is called before the first frame update
     private void Reset()
     {
+        deathCount = 0;
+        deathAdded = false;
         flingForce = 50f;
         dashSpeed = 50f;
         poleGrabbed = false;
@@ -85,13 +91,17 @@ public class bambooPlayerScript : MonoBehaviour
     }
     void Start()
     {
-        airDashes = 1;
+        deathCount = 0;
+        airDashes = 2;
         flingForce = 50f;
         dashSpeed = 50f;
         poleGrabbed = false;
         baseSpeed = 7f;
         speed = baseSpeed;
         flingPullSpeed = 15f;
+
+        scoreObj.GetComponent<keepCount>().scores.Add((int)deathCount);
+        scoreIndex = scoreObj.GetComponent<keepCount>().scores.Count-1;
 
 
         poleHeight = 5.38f;
@@ -156,6 +166,13 @@ public class bambooPlayerScript : MonoBehaviour
     {
         if (dead)
         {
+            
+            if (!deathAdded)
+            {
+                deathAdded = true;
+                deathCount += 1;
+                scoreObj.GetComponent<keepCount>().scores[scoreIndex] = (int)deathCount;
+            }
             GetComponent<SpriteRenderer>().enabled = true;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
@@ -168,6 +185,10 @@ public class bambooPlayerScript : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.red;
             pole.GetComponent<SpriteRenderer>().sprite = basePole;
             pole.GetComponent<Animator>().enabled = false;
+        }
+        else
+        {
+            deathAdded = false;
         }
         
         if (root.GetComponent<CollExpScript>().grounded)

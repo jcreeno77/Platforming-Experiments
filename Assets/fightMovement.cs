@@ -7,6 +7,7 @@ public class fightMovement : MonoBehaviour
 {
     [SerializeField] GameObject pole;
     [SerializeField] GameObject root;
+    Animator animator;
     
 
     Gamepad controller1;
@@ -24,6 +25,7 @@ public class fightMovement : MonoBehaviour
     void Start()
     {
         controller1 = GetComponent<bambooPlayerScript>().controller1;
+        animator = transform.parent.gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -46,6 +48,19 @@ public class fightMovement : MonoBehaviour
             {
                 inAttack = false;
                 counter = 0;
+            }
+
+            if (!inAttack)
+            {
+                if (controller1.buttonNorth.wasPressedThisFrame)
+                {
+                    animator.SetBool("sweepPressed", true);
+                    Debug.Log("Triangle Pressed");
+                }
+            }
+            if (animator.GetBool("sweepPressed"))
+            {
+                animator.SetBool("sweepPressed", false);
             }
         
             float vertical = 0;
