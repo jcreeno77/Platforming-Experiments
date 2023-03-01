@@ -243,7 +243,7 @@ public class bambooPlayerScript : MonoBehaviour
             if (controller1.rightShoulder.wasPressedThisFrame)
             {
                 poleGrabbed = true;
-                grabLocation = transform.localPosition;
+                //grabLocation = transform.localPosition;
                 flingDirect = new Vector2(0f, 0f);
                 //GetComponent<SpriteRenderer>().color = Color.red;
             }
