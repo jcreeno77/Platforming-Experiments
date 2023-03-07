@@ -28,10 +28,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 80af3405137ce49ab9335bc1ffde5b7e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -50,15 +46,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blend: 0
-    - _Boolean: 0
-    - _Red: 0
     - _RedOnHit: 0
     - _celldensity: 2000
     - _pixelation: 1920
-    - _reddness: 1
+    - _reddness: 0
     - _speed: 8
-    m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Color: {r: 4.078432, g: 0.1067652, b: 0.3202957, a: 0.4470588}
-    - _tint: {r: 766.9961, g: 0, b: 0, a: 1}
+    m_Colors: []
   m_BuildTextureStacks: []

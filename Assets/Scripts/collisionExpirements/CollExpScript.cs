@@ -13,8 +13,6 @@ public class CollExpScript : MonoBehaviour
     public bool playerHit = false;
     public bool playerHitConfirmed = false;
     [SerializeField] BoxCollider2D upperBound;
-
-    public Material redHit;
     
     
     // Start is called before the first frame update
@@ -77,19 +75,11 @@ public class CollExpScript : MonoBehaviour
         if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 8))
         {
             playerHit = true;
-
-            //shader effect
-            redHit.SetFloat("Blend", .01f);
-            redHit.SetFloat("RedOnHit", 1f);
-
+            
         }
         else
         {
             playerHit = false;
-
-            //shader effect
-            redHit.SetFloat("Blend", 0f);
-            redHit.SetFloat("RedOnHit", 0f);
         }
 
         if (playerHitConfirmed)

@@ -5849,6 +5849,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< HEAD
+=======
+--- !u!1 &258808973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258808975}
+  - component: {fileID: 258808974}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &258808974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258808973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &258808975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258808973}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.891006, y: -33.993553, z: 1.1624172}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of 0012ec7 (updated)
 --- !u!1 &260435424
 GameObject:
   m_ObjectHideFlags: 0
@@ -39285,8 +39332,11 @@ GameObject:
   - component: {fileID: 1775850341}
   - component: {fileID: 1775850342}
   - component: {fileID: 1775850343}
+<<<<<<< HEAD
   - component: {fileID: 1775850344}
   - component: {fileID: 1775850345}
+=======
+>>>>>>> parent of 0012ec7 (updated)
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -39327,8 +39377,13 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 2000
+<<<<<<< HEAD
   field of view: 89
   orthographic: 0
+=======
+  field of view: 109
+  orthographic: 1
+>>>>>>> parent of 0012ec7 (updated)
   orthographic size: 6.4
   m_Depth: -1
   m_CullingMask:
@@ -39402,6 +39457,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
 --- !u!114 &1775850344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39450,6 +39506,8 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+=======
+>>>>>>> parent of 0012ec7 (updated)
 --- !u!1 &1787667342
 GameObject:
   m_ObjectHideFlags: 0

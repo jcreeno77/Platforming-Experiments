@@ -11,8 +11,8 @@ public class smashBrosCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camSpeed = 10;
-        camMinSize = -15;
+        camSpeed = 5;
+        camMinSize = -20;
     }
 
     // Update is called once per frame
