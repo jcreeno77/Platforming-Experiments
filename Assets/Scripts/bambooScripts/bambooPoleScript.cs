@@ -51,10 +51,6 @@ public class bambooPoleScript : MonoBehaviour
             body.AddForce(new Vector2(0f, -gravity*Time.deltaTime));
         }
 
-
-        
-        
-
         if (Input.GetKeyDown(KeyCode.R) || controller1.startButton.wasPressedThisFrame)
         {
             if (body == null)

@@ -28,10 +28,10 @@ public class collExpScript2 : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6))
-        {
-            pole.transform.rotation = Quaternion.Euler(pole.transform.rotation.x, pole.transform.rotation.y, pole.transform.rotation.z);
-        }
+        //if (Physics2D.IsTouchingLayers(GetComponent<BoxCollider2D>(), 1 << 6))
+        //{
+        //    pole.transform.rotation = Quaternion.Euler(pole.transform.rotation.x, pole.transform.rotation.y, pole.transform.rotation.z);
+        //}
             
 
         /*
@@ -70,9 +70,27 @@ public class collExpScript2 : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("collided upper root");
+        Debug.Log("collision");
+        //Debug.Log(collision.transform.tag);
+        Vector2 norm = collision.GetContact(0).normal;
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            norm = collision.GetContact(i).normal;
+            
+        }
+        if (collision.gameObject.tag == "ground" && !player.GetComponent<bambooPlayerScript>().dead)
+        {
+            Debug.Log("hit Ground");
+            //pole.transform.rotation = Quaternion.Euler(pole.transform.rotation.x, pole.transform.rotation.y, pole.transform.rotation.z);
+            //GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            pole.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 0f);
+            pole.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+            pole.transform.rotation = Quaternion.Euler(0, 0, Vector2.Angle(Vector2.up, norm));
+
+        }
+
     }
 
 
