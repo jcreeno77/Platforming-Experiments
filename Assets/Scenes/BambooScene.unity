@@ -4226,6 +4226,7 @@ MonoBehaviour:
   basePole: {fileID: 21300000, guid: 0b0b79b2eb25a42f8b728751c858530b, type: 3}
   animator: {fileID: 171279853}
   flingDistance: 0
+  redHit: {fileID: 0}
 --- !u!212 &171279851
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5304,6 +5305,7 @@ MonoBehaviour:
   playerHit: 0
   playerHitConfirmed: 0
   upperBound: {fileID: 221579772}
+  redHit: {fileID: 0}
 --- !u!61 &221579775
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11820,6 +11822,7 @@ MonoBehaviour:
   basePole: {fileID: 21300000, guid: 0b0b79b2eb25a42f8b728751c858530b, type: 3}
   animator: {fileID: 505943837}
   flingDistance: 0
+  redHit: {fileID: 0}
 --- !u!212 &505943839
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13758,6 +13761,7 @@ MonoBehaviour:
   gravity: 20
   root: {fileID: 1209687491}
   player: {fileID: 1242722333}
+  redHit: {fileID: 0}
 --- !u!231 &612516748
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -15639,6 +15643,7 @@ MonoBehaviour:
   gravity: 20
   root: {fileID: 221579771}
   player: {fileID: 505943834}
+  redHit: {fileID: 0}
 --- !u!231 &677426026
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -15857,6 +15862,7 @@ MonoBehaviour:
   gravity: 20
   root: {fileID: 1748445978}
   player: {fileID: 2137647415}
+  redHit: {fileID: 0}
 --- !u!231 &678553134
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -26608,6 +26614,7 @@ MonoBehaviour:
   playerHit: 0
   playerHitConfirmed: 0
   upperBound: {fileID: 1209687492}
+  redHit: {fileID: 0}
 --- !u!61 &1209687495
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27601,6 +27608,7 @@ MonoBehaviour:
   basePole: {fileID: 21300000, guid: 0b0b79b2eb25a42f8b728751c858530b, type: 3}
   animator: {fileID: 1242722336}
   flingDistance: 0
+  redHit: {fileID: 0}
 --- !u!212 &1242722338
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31189,6 +31197,7 @@ MonoBehaviour:
   gravity: 20
   root: {fileID: 1987129246}
   player: {fileID: 171279848}
+  redHit: {fileID: 0}
 --- !u!95 &1361070916
 Animator:
   serializedVersion: 4
@@ -38677,6 +38686,7 @@ MonoBehaviour:
   playerHit: 0
   playerHitConfirmed: 0
   upperBound: {fileID: 1748445979}
+  redHit: {fileID: 0}
 --- !u!61 &1748445982
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39327,7 +39337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 2000
-  field of view: 89
+  field of view: 85
   orthographic: 0
   orthographic size: 6.4
   m_Depth: -1
@@ -39430,26 +39440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!1 &1787667342
 GameObject:
   m_ObjectHideFlags: 0
@@ -43170,6 +43160,7 @@ MonoBehaviour:
   playerHit: 0
   playerHitConfirmed: 0
   upperBound: {fileID: 1987129251}
+  redHit: {fileID: 0}
 --- !u!50 &1987129250
 Rigidbody2D:
   serializedVersion: 4
@@ -46134,6 +46125,7 @@ MonoBehaviour:
   basePole: {fileID: 21300000, guid: 0b0b79b2eb25a42f8b728751c858530b, type: 3}
   animator: {fileID: 2137647418}
   flingDistance: 0
+  redHit: {fileID: 0}
 --- !u!212 &2137647420
 SpriteRenderer:
   m_ObjectHideFlags: 0
