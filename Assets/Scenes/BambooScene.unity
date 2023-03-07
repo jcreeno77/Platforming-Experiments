@@ -11258,6 +11258,7 @@ GameObject:
   - component: {fileID: 493245454}
   - component: {fileID: 493245453}
   - component: {fileID: 493245455}
+  - component: {fileID: 493245456}
   m_Layer: 6
   m_Name: Platform (6)
   m_TagString: ground
@@ -11273,8 +11274,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493245451}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.1, y: -21.5, z: -3.5904021}
-  m_LocalScale: {x: 8.746285, y: 1.6881173, z: 1}
+  m_LocalPosition: {x: 24.0589, y: -21.5, z: -3.5904021}
+  m_LocalScale: {x: 39.09297, y: 1.6881173, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2086520276}
@@ -11348,7 +11349,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
+  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.6509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -11370,7 +11371,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 14.764755
+  m_Mass: 65.99352
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -11379,6 +11380,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &493245456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493245451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec34e1aba5bef2d4cb6f6a4221330a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1361070908}
 --- !u!1 &495645411
 GameObject:
   m_ObjectHideFlags: 0

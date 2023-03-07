@@ -170,13 +170,14 @@ public class bambooPlayerScript : MonoBehaviour
         if (dead)
         {
             
-            if (!deathAdded)
+            /*if (!deathAdded)
             {
                 deathAdded = true;
                 deathCount += 1;
                 scoreObj.GetComponent<keepCount>().scores[scoreIndex] = (int)deathCount;
-            }
-            //GetComponent<SpriteRenderer>().enabled = true;
+            }*/
+            GetComponent<SpriteRenderer>().enabled = true;
+            pole.GetComponent<SpriteRenderer>().sprite = basePole;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
             root.SetActive(false);
