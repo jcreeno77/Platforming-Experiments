@@ -12,6 +12,8 @@ public class bambooPoleScript : MonoBehaviour
     Quaternion startRotation;
     Rigidbody2D body;
     Gamepad controller1;
+
+    public Material redHit;
     
     // Start is called before the first frame update
     private void Reset()
@@ -76,7 +78,9 @@ public class bambooPoleScript : MonoBehaviour
             player.transform.parent = transform;
             player.transform.localPosition = new Vector2(0, 0);
             player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            player.GetComponent<SpriteRenderer>().color = Color.white;
+            //player.GetComponent<SpriteRenderer>().color = Color.white;
+            redHit.SetFloat("Blend", 0f);
+            redHit.SetFloat("RedOnHit", 0f);
         }
     }
 

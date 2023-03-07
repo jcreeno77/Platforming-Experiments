@@ -49,6 +49,9 @@ public class bambooPlayerScript : MonoBehaviour
     public float flingDistance;
     public Gamepad controller1;
 
+    //red effect when hit
+    public Material redHit;
+
     // Start is called before the first frame update
     private void Reset()
     {
@@ -173,7 +176,7 @@ public class bambooPlayerScript : MonoBehaviour
                 deathCount += 1;
                 scoreObj.GetComponent<keepCount>().scores[scoreIndex] = (int)deathCount;
             }
-            GetComponent<SpriteRenderer>().enabled = true;
+            //GetComponent<SpriteRenderer>().enabled = true;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
             root.SetActive(false);
@@ -182,8 +185,9 @@ public class bambooPlayerScript : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(pole.GetComponent<Rigidbody2D>().velocity.x, pole.GetComponent<Rigidbody2D>().velocity.y);
             jumpsLeft = 0;
             dashesLeft = 0;
-            GetComponent<SpriteRenderer>().color = Color.red;
-            pole.GetComponent<SpriteRenderer>().sprite = basePole;
+            redHit.SetFloat("Blend", 0.01f);
+            redHit.SetFloat("RedOnHit", 1f);
+            //pole.GetComponent<SpriteRenderer>().sprite = basePole;
             pole.GetComponent<Animator>().enabled = false;
         }
         else
