@@ -178,6 +178,7 @@ public class bambooPlayerScript : MonoBehaviour
             }*/
             GetComponent<SpriteRenderer>().enabled = true;
             pole.GetComponent<SpriteRenderer>().sprite = basePole;
+            pole.GetComponent<Animator>().enabled = false;
             transform.parent = null;
             gameObject.AddComponent<Rigidbody2D>();
             root.SetActive(false);
@@ -194,6 +195,7 @@ public class bambooPlayerScript : MonoBehaviour
         else
         {
             deathAdded = false;
+            pole.GetComponent<Animator>().enabled = true;
         }
         
         if (root.GetComponent<CollExpScript>().grounded)
